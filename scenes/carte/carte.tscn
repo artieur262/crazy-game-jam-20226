@@ -32,7 +32,7 @@ script = ExtResource("3_ngapm")
 script = ExtResource("4_ngapm")
 
 [node name="rouge" type="Sprite2D" parent="CharacterBody2D" unique_id=776641113]
-position = Vector2(-4, 102)
+position = Vector2(-4, 95)
 texture = ExtResource("5_m860a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=2065457481]
