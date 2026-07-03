@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://d3htkwk2bka1l"]
+
+[ext_resource type="Script" uid="uid://dpnxah2yx1bet" path="res://scenes/chariot/chariot.gd" id="1_4f4h3"]
+[ext_resource type="PackedScene" uid="uid://ctybgus7yaklu" path="res://scenes/map/map.tscn" id="1_bijxe"]
+
+[node name="ScenePrincipale" type="VSplitContainer" unique_id=272062429]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offsets = PackedInt32Array(348)
+dragger_visibility = 2
+split_offset = 348
+script = ExtResource("1_4f4h3")
+
+[node name="MapSubViewportContainer" type="SubViewportContainer" parent="." unique_id=1878296894]
+z_index = 10
+layout_mode = 2
+stretch = true
+
+[node name="MapSubViewport" type="SubViewport" parent="MapSubViewportContainer" unique_id=1964736245]
+handle_input_locally = false
+size = Vector2i(1152, 348)
+render_target_update_mode = 4
+
+[node name="Map" parent="MapSubViewportContainer/MapSubViewport" unique_id=626538962 instance=ExtResource("1_bijxe")]
+
+[node name="Control" type="Control" parent="." unique_id=151804939]
+layout_mode = 2
+
+[node name="arriere plan" type="TextureRect" parent="Control" unique_id=825370736]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 300.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Chariot" type="TextureRect" parent="Control" unique_id=551042146]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 300.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Boutons" type="VBoxContainer" parent="Control" unique_id=1359169803]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -167.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Direction" type="Button" parent="Control/Boutons" unique_id=821122941]
+layout_mode = 2
+text = "choisir une direction"
+
+[node name="Réparer" type="Button" parent="Control/Boutons" unique_id=244076767]
+layout_mode = 2
+text = "réparer le chariot"
+
+[node name="Explorer" type="Button" parent="Control/Boutons" unique_id=824842527]
+layout_mode = 2
+text = "explorer"
+
+[node name="Préparer un camp" type="Button" parent="Control/Boutons" unique_id=1555284971]
+layout_mode = 2
+text = "préparer un camp"
