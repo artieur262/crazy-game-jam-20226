@@ -1,6 +1,6 @@
 extends TileMapLayer
 
-var rayon_de_decouverte:int = 10
+var rayon_de_decouverte:int = 4
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,15 +9,16 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	for i in range(3):
-		for j in range(3):
-			erase_cell(Vector2i(-1+i,-5+j))
+	decouvrir_autour(Vector2(200,200))
 	
 
 
+
+
 func decouvrir_autour(pos_p:Vector2):
-	var position_grill := map_to_local(pos_p)
-	for i in range(rayon_de_decouverte):
-		for j in range(rayon_de_decouverte):
-			erase_cell(Vector2i(position_grill.x+i, position_grill.y+j))
+	var position_grill := local_to_map(to_local(pos_p))
+	for i in range(-rayon_de_decouverte+1, rayon_de_decouverte):
+		for j in range(-rayon_de_decouverte+1,rayon_de_decouverte):
+			var cat = Vector2i(position_grill.x+i, position_grill.y+j)
+			erase_cell(cat)
 	
