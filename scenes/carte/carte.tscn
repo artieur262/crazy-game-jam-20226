@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dohp7yb854xxl" path="res://textures/cat_atlas_texture.tres" id="2_qrloe"]
 [ext_resource type="Script" uid="uid://uu8mtcincgvr" path="res://scenes/carte/Map.gd" id="3_4b0x1"]
-[ext_resource type="Script" uid="uid://bpr2j0bs7ysgi" path="res://scenes/carte/Ccheckpoints.gd" id="5_cjsme"]
+[ext_resource type="Script" uid="uid://bpr2j0bs7ysgi" path="res://scenes/carte/Checkpoints.gd" id="5_cjsme"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xn81g"]
 texture = ExtResource("2_qrloe")
