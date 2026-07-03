@@ -1,12 +1,9 @@
-#todo: remplacer map.checkpoints[0] par jeu.debut et map.checkpoints[-1] par jeu.fin
+#todo: remplacer Jeu.checkpoint_depart par jeu.debut et Jeu.checkpoint_arrive par jeu.fin
 class_name Generateur
 
-# todo: enlever ça
-static var map: Map
 
 ## Prépare la [Map] pour être utilisé en modifiant les connections.
 static func genere_routes(map: Map):
-	Generateur.map = map
 	_detecter_checkpoints(map)
 	_creer_connections(map)
 	var route := _choisir_route()
@@ -38,18 +35,18 @@ static func _creer_connections(map: Map):
 
 ## Choisi une route possible entre les [Checkpoint] et la retourne.
 static func _choisir_route() -> Array[Checkpoint]:
-	var routes := _lister_routes([map.checkpoints[0]])
+	var routes := _lister_routes([Jeu.checkpoint_depart])
 	var route: Array[Checkpoint] = routes[randi_range(0, len(routes)-1)]
 	return route
 
 ## Liste toutes les routes possible vers le [Checkpoint] de fin.
 static func _lister_routes(checkpoint_visites: Array[Checkpoint]) -> Array[Array]:
 	var routes: Array[Array]
-	for checkpoint_connecte in map.checkpoints[0].liste_connection():
+	for checkpoint_connecte in Jeu.checkpoint_depart.liste_connection():
 		if checkpoint_visites.has(checkpoint_connecte):
 			continue
 		var checkpoint_visites_copie := checkpoint_visites.duplicate()
-		if checkpoint_connecte == map.checkpoints[-1]:
+		if checkpoint_connecte == Jeu.checkpoint_arrive:
 			checkpoint_visites.append(checkpoint_connecte)
 			routes.append(checkpoint_visites)
 		routes.append_array(_lister_routes(checkpoint_visites_copie))
