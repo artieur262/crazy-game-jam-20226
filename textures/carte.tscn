@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://cyoq04t4gmnnp"]
 
-[ext_resource type="Script" uid="uid://cwbd804y5a54v" path="res://carte.gd" id="1_ngapm"]
+[ext_resource type="Script" uid="uid://cwbd804y5a54v" path="res://scenes/carte/carte.gd" id="1_ngapm"]
 [ext_resource type="Texture2D" uid="uid://dohp7yb854xxl" path="res://textures/cat_atlas_texture.tres" id="2_mkmrs"]
-[ext_resource type="Script" uid="uid://uu8mtcincgvr" path="res://tile_map_layer.gd" id="3_djluy"]
-[ext_resource type="Script" uid="uid://b4ippgja6y2y7" path="res://character_body_2d.gd" id="4_ak2ee"]
+[ext_resource type="Script" uid="uid://uu8mtcincgvr" path="res://scenes/carte/tile_map_layer.gd" id="3_djluy"]
+[ext_resource type="Script" uid="uid://b4ippgja6y2y7" path="res://scenes/carte/character_body_2d.gd" id="4_ngapm"]
 [ext_resource type="Texture2D" uid="uid://be5n1tosb7sqg" path="res://textures/rouge.png" id="5_m860a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xn81g"]
@@ -29,7 +29,7 @@ tile_set = SubResource("TileSet_csfff")
 script = ExtResource("3_djluy")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1203939026]
-script = ExtResource("4_ak2ee")
+script = ExtResource("4_ngapm")
 
 [node name="rouge" type="Sprite2D" parent="CharacterBody2D" unique_id=776641113]
 position = Vector2(-4, 102)
