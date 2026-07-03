@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dpnxah2yx1bet" path="res://scenes/chariot/chariot.gd" id="1_4f4h3"]
 [ext_resource type="PackedScene" uid="uid://ctybgus7yaklu" path="res://scenes/map/map.tscn" id="1_bijxe"]
 
-[node name="ScenePrincipale" type="VSplitContainer" unique_id=272062429]
+[node name="SceneChariot" type="VSplitContainer" unique_id=272062429]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -74,3 +74,8 @@ text = "explorer"
 [node name="Préparer un camp" type="Button" parent="Control/Boutons" unique_id=1555284971]
 layout_mode = 2
 text = "préparer un camp"
+
+[connection signal="pressed" from="Control/Boutons/Direction" to="." method="_on_direction_pressed"]
+[connection signal="pressed" from="Control/Boutons/Réparer" to="." method="_on_réparer_pressed"]
+[connection signal="pressed" from="Control/Boutons/Explorer" to="." method="_on_explorer_pressed"]
+[connection signal="pressed" from="Control/Boutons/Préparer un camp" to="." method="_on_préparer_un_camp_pressed"]
