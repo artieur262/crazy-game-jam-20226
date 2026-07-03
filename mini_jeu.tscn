@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cy44ynlr3h6u6"]
+
+[node name="mini-jeu" type="Control" unique_id=380734567]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="bordure" type="Panel" parent="." unique_id=726336803]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 100.0
+
+[node name="interieur" type="Panel" parent="bordure" unique_id=1627206719]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 15.0
+offset_right = 400.0
+offset_bottom = 85.0
+
+[node name="Panel" type="Panel" parent="bordure" unique_id=2028619747]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 85.0
+offset_bottom = 85.0
+
+[node name="Panel2" type="Panel" parent="bordure" unique_id=1919986759]
+layout_mode = 0
+offset_left = 415.0
+offset_top = 15.0
+offset_right = 485.0
+offset_bottom = 85.0
