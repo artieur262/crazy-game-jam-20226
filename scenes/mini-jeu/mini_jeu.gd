@@ -1,7 +1,11 @@
 extends Control
 
-var vitesse_curseur :int = 3
+var vitesse_curseur :float = 3
 var sens := 1
+var lettre_droite := 0
+var lettre_gauche := 0
+var liste_lettre := ["A","D","Q","D","Z","S"]
+
 signal quitter(bool) 
 
 # Called when the node enters the scene tree for the first time.

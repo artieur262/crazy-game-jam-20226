@@ -15,8 +15,14 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04ioi"]
+bg_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_b0kvs"]
 font_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oo3wd"]
+bg_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_j0wfc"]
 font_size = 30
@@ -68,6 +74,7 @@ offset_top = 15.0
 offset_right = -15.0
 offset_bottom = 85.0
 grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_04ioi")
 
 [node name="Label_droite" type="Label" parent="bordure/droite" unique_id=1534799147]
 layout_mode = 0
@@ -83,6 +90,7 @@ offset_left = 15.0
 offset_top = 15.0
 offset_right = 85.0
 offset_bottom = 85.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oo3wd")
 
 [node name="Label_gauche" type="Label" parent="bordure/gauche" unique_id=515412652]
 layout_mode = 0

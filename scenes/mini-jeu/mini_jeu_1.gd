@@ -1,10 +1,8 @@
 extends "res://scenes/mini-jeu/mini_jeu.gd"
 
 var prochain_droite := false
-var restant := 5
-var lettre_droite := 0
-var lettre_gauche := 0
-var liste_lettre := ["A","D","Q","D","Z","S"]
+var restant := 10
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -68,8 +66,8 @@ func randomiser(is_droite:bool):
 	var rand := randi_range(0,liste_lettre.size()-1)
 	if is_droite:
 		lettre_droite=rand
-		ajouter_texte_droite(liste_lettre.get(rand))
+		ajouter_texte_droite(liste_lettre.get(lettre_droite))
 	else:
 		lettre_gauche=rand
-		ajouter_texte_gauche(liste_lettre.get(rand))
+		ajouter_texte_gauche(liste_lettre.get(lettre_gauche))
 	
