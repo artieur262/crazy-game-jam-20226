@@ -10,6 +10,13 @@ var checkpoint_arrive: Checkpoint
 var carte: Carte
 var nom: String
 var dommages: Array[Dommage]
+var inventaire :Array[Item]
+
+
+func quantite_dans_inventaire(objet:Item) -> int:
+	return 0
+
+
 
 func sauvegarder():
 	pass

@@ -30,3 +30,8 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Inventaires" unique_id=1127891514]
+layout_mode = 0
+offset_right = 1147.0
+offset_bottom = 210.0
