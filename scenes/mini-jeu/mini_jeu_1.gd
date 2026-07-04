@@ -52,7 +52,6 @@ func point_up() -> void:
 	restant -=1
 	if restant == 0:
 		quitter.emit(true)
-	print("point", restant)
 
 func actioner():
 	var cus : Panel = $"bordure/interieur-ext/interieur-int/curseur"

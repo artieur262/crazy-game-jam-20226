@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://doiq3ybvu1ik7"]
+
+[ext_resource type="PackedScene" uid="uid://cy44ynlr3h6u6" path="res://scenes/mini-jeu/mini_jeu.tscn" id="1_fup6w"]
+
+[node name="mini-jeu-2" unique_id=380734567 instance=ExtResource("1_fup6w")]
