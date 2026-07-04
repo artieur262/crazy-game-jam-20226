@@ -7,7 +7,7 @@ static var appel_count := 0
 
 ## Prépare la [Carte] pour être utilisé en modifiant les connections.
 static func genere_routes(carte: Carte):
-	_detecter_checkpoints(carte)
+	detecter_checkpoints(carte)
 	assert(len(carte.checkpoints) > 1)
 	if Jeu.checkpoint_depart == null:
 		Jeu.checkpoint_depart = carte.checkpoints[
@@ -30,7 +30,7 @@ static func genere_routes(carte: Carte):
 	_dessiner_routes(carte, Jeu.checkpoint_depart, [])
 
 ## Cherche tout les [Checkpoint] de la [Carte].
-static func _detecter_checkpoints(carte: Carte):
+static func detecter_checkpoints(carte: Carte):
 	for child in carte.get_children():
 		if child is Checkpoint:
 			carte.checkpoints.append(child)

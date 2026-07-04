@@ -8,7 +8,7 @@ class_name Checkpoint
 signal selectionne
 
 ## Id du checkpoint.
-var id: String
+var id: int
 ## [Carte] associé à ce checkpoint.
 @onready var carte: Carte = get_parent()
 ## Liste des [Checkpoint] auquel celui-ci est connecté
