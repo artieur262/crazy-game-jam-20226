@@ -20,14 +20,14 @@ offset_top = 15.0
 offset_right = 400.0
 offset_bottom = 85.0
 
-[node name="Panel" type="Panel" parent="bordure" unique_id=2028619747]
+[node name="droite" type="Panel" parent="bordure" unique_id=2028619747]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 15.0
 offset_right = 85.0
 offset_bottom = 85.0
 
-[node name="Panel2" type="Panel" parent="bordure" unique_id=1919986759]
+[node name="gauche" type="Panel" parent="bordure" unique_id=1919986759]
 layout_mode = 0
 offset_left = 415.0
 offset_top = 15.0
