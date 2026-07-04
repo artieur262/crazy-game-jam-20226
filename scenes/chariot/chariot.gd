@@ -28,18 +28,43 @@ func corriger_map():
 	carte.camera.modifier_zoom(0.1)
 	carte.camera.modifier_zoom(-0.1)
 
+## Tente de passer vers une phase principale (PHASE_UN, PHASE_DEUX)
+## Retourne false si ce n'est pas possible.
+func passer_en_phase_principale(auto_warning := false) -> bool:
+	if Jeu.phase_actuelle == Jeu.PHASES.RESUME:
+		Jeu.prochaine_phase()
+	if Jeu.phase_actuelle == Jeu.PHASES.PREMIERE_SELECTION:
+		Jeu.prochaine_phase()
+		return true
+	elif Jeu.phase_actuelle == Jeu.PHASES.SECONDE_SELECTION:
+		Jeu.prochaine_phase()
+		return true
+	if auto_warning:
+		afficher_info("Demande invalide pour ce stade du jeu.")
+	return false
+
+## Affiche un texte à l'utilisateur.
+func afficher_info(text: String):
+	$EcranBas/Interface/Console.text += text + "\n"
+
 # ----------------- Déplacements -----------------
 ## Connecté à [signal Carte.checkpoint_selectionne] et indique
 ## si le joeur a cliqué sur un checkpoint et déplace le joueur
 ## si possible et si le déplacement est en cours.
 func _on_clic_checkpoint(checkpoint: Checkpoint):
 	if en_deplacement:
+		if not passer_en_phase_principale(true):
+			$EcranBas/Interface/bouttons/Boutons/Direction.\
+				button_pressed = true
+			$EcranBas/Interface/bouttons/Boutons/Direction.\
+				button_pressed = false
+			return
 		var checkpoint_joueur = carte.checkpointViaPos(
 			Jeu.position_joueur)
 		if est_visitable(checkpoint_joueur, checkpoint, [], 0):
 			return
-		$EcranBas/Interface/Warnings.text += (
-			"Ce checkpoint est trop loin pour être atteignable.\n")
+		afficher_info(
+			"Ce checkpoint est trop loin pour être atteignable.")
 
 ## Cherche si il est possible d'aller sur le noeud de
 ## destination et déplace le joueur le cas échant.
@@ -64,11 +89,12 @@ func est_visitable(
 	return false
 
 ## Déplace le joueur vers le checkpoint indiqué.
-func aller_sur(checkpoint: Checkpoint):
+func aller_sur(checkpoint: Checkpoint):	
 	carte.checkpointViaPos(Jeu.position_joueur).joueur_dessus(false)
 	Jeu.position_joueur = checkpoint.position
 	checkpoint.joueur_dessus(true)
 	checkpoint.visite = true
+	Jeu.prochaine_phase()
 
 ## Appelé quand le bouton "Choisir une direction" est appuyé ou relaché.
 func _on_direction_toggled(toggled_on: bool) -> void:
@@ -78,19 +104,24 @@ func _on_direction_toggled(toggled_on: bool) -> void:
 
 ## Appellé quand le bouton "réparer le chariot" est appuyé.
 func _on_reparer_pressed() -> void:
+	if not passer_en_phase_principale(true):
+		return
 	Jeu.sauvegarder()
 	get_tree().change_scene_to_file("res://scenes/reparations/reparations.tscn")
 
 
 ## Appellé quand le bouton "explorer" est appuyé.
 func _on_explorer_pressed() -> void:
+	if not passer_en_phase_principale(true):
+		return
 	Jeu.sauvegarder()
 	get_tree().change_scene_to_file("res://scenes/explorations/explorations.tscn")
 
 
 ## Appellé quand le bouton "préparer le camp" est appuyé.
 func _on_preparer_un_camp_pressed() -> void:
-	pass
+	if not passer_en_phase_principale(true):
+		return
 
 # ----------------- Quitter -----------------
 

@@ -28,6 +28,7 @@ func _on_valider_nom_pressed() -> void:
 	Jeu.position_joueur = Jeu.checkpoint_depart.position
 	carte.reset_brouillard()
 	Jeu.position_joueur = Jeu.checkpoint_depart.position
+	Jeu.phase_actuelle = Jeu.PHASES.PREPARTIE
 	get_tree().change_scene_to_node(chariot)
 
 func _on_charger_pressed() -> void:

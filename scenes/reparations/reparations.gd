@@ -7,7 +7,7 @@ func _ready():
 	for dommage in Jeu.dommages:
 		ajouter_domages(dommage)
 
-func ajouter_domages(dommage: Jeu.Dommage):
+func ajouter_domages(dommage: Dommage):
 	if domages_initialises.has(dommage.id):
 		return
 	var noeud := RichTextLabel.new()
@@ -21,11 +21,11 @@ func ajouter_domages(dommage: Jeu.Dommage):
 	noeud.text = noeud.text.left(-1)
 	domages_initialises[dommage.id] = noeud
 
-func supprimer_dommages(dommage: Jeu.Dommage):
+func supprimer_dommages(dommage: Dommage):
 	if not domages_initialises.has(dommage.id):
 		return
 	var noeud := domages_initialises[dommage.id]
 	$"Main/Réparations".remove_child(noeud)
 
-func ajouter_item(item: Jeu.Item):
+func ajouter_item(item: Item):
 	pass
