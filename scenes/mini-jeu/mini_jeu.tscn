@@ -1,5 +1,26 @@
 [gd_scene format=3 uid="uid://cy44ynlr3h6u6"]
 
+[ext_resource type="Script" uid="uid://lfmc4akcise4" path="res://scenes/mini-jeu/mini_jeu.gd" id="1_b0kvs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjauv"]
+bg_color = Color(0.31, 0.31, 0.31, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b0kvs"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_b0kvs"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_j0wfc"]
+font_size = 30
+
 [node name="mini-jeu" type="Control" unique_id=380734567]
 layout_mode = 3
 anchors_preset = 15
@@ -7,40 +28,66 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_b0kvs")
 
 [node name="bordure" type="Panel" parent="." unique_id=726336803]
 layout_mode = 0
 offset_right = 500.0
 offset_bottom = 100.0
 
-[node name="interieur" type="Panel" parent="bordure" unique_id=1627206719]
+[node name="interieur-ext" type="Panel" parent="bordure" unique_id=1627206719]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 15.0
 offset_right = 400.0
 offset_bottom = 85.0
 
+[node name="interieur-int" type="Panel" parent="bordure/interieur-ext" unique_id=440662895]
+texture_filter = 5
+texture_repeat = 1
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 295.0
+offset_bottom = 65.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jjauv")
+
+[node name="curseur" type="Panel" parent="bordure/interieur-ext/interieur-int" unique_id=1882643979]
+layout_mode = 0
+offset_right = 5.0
+offset_bottom = 60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_b0kvs")
+
 [node name="droite" type="Panel" parent="bordure" unique_id=2028619747]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -85.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = 85.0
+grow_horizontal = 0
+
+[node name="Label_droite" type="Label" parent="bordure/droite" unique_id=1534799147]
+layout_mode = 0
+offset_right = 70.0
+offset_bottom = 70.0
+label_settings = SubResource("LabelSettings_b0kvs")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="gauche" type="Panel" parent="bordure" unique_id=1919986759]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 15.0
 offset_right = 85.0
 offset_bottom = 85.0
 
-[node name="Label_droite" type="Label" parent="bordure/droite" unique_id=1534799147]
+[node name="Label_gauche" type="Label" parent="bordure/gauche" unique_id=515412652]
 layout_mode = 0
 offset_right = 70.0
 offset_bottom = 70.0
-
-[node name="gauche" type="Panel" parent="bordure" unique_id=1919986759]
-layout_mode = 0
-offset_left = 415.0
-offset_top = 15.0
-offset_right = 485.0
-offset_bottom = 85.0
-
-[node name="Label_gauche" type="Label" parent="bordure/gauche" unique_id=515412652]
-layout_mode = 0
-offset_left = -400.0
-offset_right = -330.0
-offset_bottom = 70.0
+label_settings = SubResource("LabelSettings_j0wfc")
+horizontal_alignment = 1
+vertical_alignment = 1
