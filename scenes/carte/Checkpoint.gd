@@ -1,39 +1,37 @@
 
 ## Classe représentant un checkpoint sur lequel un joueur peux se poser.
-extends Node2D
+extends MeshInstance2D
 class_name Checkpoint
 
 ## Émit quand ce checkpoint est selectionné.
 ## Pour écouter indépendamment du checkpoint voir [signal Map.checkpoint_selectionne]
 signal selectionne
 
+## Id du checkpoint.
+var id: int
 ## [Carte] associé à ce checkpoint.
 @onready var carte: Carte = get_parent()
 ## Liste des [Checkpoint] auquel celui-ci est connecté
 @export var connections: Array
 ## Définir si le checkpoint a été visité par le joueur.
 var visite := false
-var mesh: MeshInstance2D
 
+## Texture utilisé par le checkpoint quand le joueur est dessus.
 const DESSUS := preload("res://assets/carte/checkpoint visite.png")
+## Texture utilisé par le checkpoint quand le joueur n'est
+## pas dessus.
 const PAS_DESSUS := preload("res://assets/carte/checkpoint.png")
 
 
-
 func _init():
+	id = randi()
 	visite = false
 	connections = []
 
-
+## Appellé par le chariot pour faire changer la texture
+## en fonction de si le joueur est dessus ou non.
 func joueur_dessus(toogle: bool):
-	if mesh == null:
-		for child in get_children():
-			if child is MeshInstance2D:
-				mesh = child
-				break
-		if mesh == null:
-			return
-	mesh.texture = DESSUS if toogle else PAS_DESSUS
+	texture = DESSUS if toogle else PAS_DESSUS
 
 ## Ajoute le [Checkpoint] donnée à la liste des connection si il n'est pas déjà connecté.
 func connecte_checkpoint(checkpoint: Checkpoint) -> void:
@@ -58,7 +56,7 @@ func est_connecte(checkpoint: Checkpoint) -> bool:
 	return connections.has(checkpoint)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action("selectionner"):
+	if event.is_action_pressed("selectionner"):
 		var mouse_pos := get_local_mouse_position()
 		var rayon: Vector2 = Vector2.ONE * (5/carte.camera.zoom.x)
 		if (

@@ -6,10 +6,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_osho2"]
 size = Vector3(10, 10, 10)
 
-[node name="Checkpoint" type="Node2D" unique_id=1078793764]
-script = ExtResource("1_akh6w")
-metadata/_custom_type_script = "uid://bpr2j0bs7ysgi"
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=430178436]
+[node name="Checkpoint" type="MeshInstance2D" unique_id=1497967500]
 mesh = SubResource("BoxMesh_osho2")
 texture = ExtResource("2_fe7hm")
+script = ExtResource("1_akh6w")
