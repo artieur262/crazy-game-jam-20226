@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://cyoq04t4gmnnp"]
+
+[ext_resource type="Texture2D" uid="uid://cbqfji7bwa8el" path="res://assets/carte/brouillard.png" id="1_42v6u"]
+[ext_resource type="Script" uid="uid://uu8mtcincgvr" path="res://scenes/carte/Carte.gd" id="2_y1d8v"]
+[ext_resource type="PackedScene" uid="uid://djm47n33u1ohb" path="res://scenes/carte/Checkpoint.tscn" id="3_42v6u"]
+[ext_resource type="Script" uid="uid://dfq6h5ljq5fyc" path="res://scenes/carte/Camera.gd" id="4_y1d8v"]
+[ext_resource type="Texture2D" uid="uid://bkgtqncppiem8" path="res://assets/carte/map.png" id="5_42v6u"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_42v6u"]
+texture = ExtResource("1_42v6u")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_csfff"]
+sources/1 = SubResource("TileSetAtlasSource_42v6u")
+
+[node name="TileMapLayer" type="TileMapLayer" unique_id=1149082585 node_paths=PackedStringArray("depart", "arrive")]
+tile_set = SubResource("TileSet_csfff")
+navigation_enabled = false
+script = ExtResource("2_y1d8v")
+distance_max = 100
+taille_carte = Vector2i(60, 17)
+depart = NodePath("Checkpoint")
+arrive = NodePath("Checkpoint21")
+
+[node name="Checkpoint" parent="." unique_id=174553439 instance=ExtResource("3_42v6u")]
+position = Vector2(131, 121)
+
+[node name="Checkpoint2" parent="." unique_id=1078793764 instance=ExtResource("3_42v6u")]
+position = Vector2(159, 94)
+
+[node name="Checkpoint3" parent="." unique_id=316762338 instance=ExtResource("3_42v6u")]
+position = Vector2(157, 174)
+
+[node name="Checkpoint4" parent="." unique_id=484008359 instance=ExtResource("3_42v6u")]
+position = Vector2(221, 99)
+
+[node name="Checkpoint5" parent="." unique_id=666410871 instance=ExtResource("3_42v6u")]
+position = Vector2(200, 183)
+
+[node name="Checkpoint6" parent="." unique_id=570700660 instance=ExtResource("3_42v6u")]
+position = Vector2(239, 153)
+
+[node name="Checkpoint7" parent="." unique_id=1594633077 instance=ExtResource("3_42v6u")]
+position = Vector2(281, 165)
+
+[node name="Checkpoint8" parent="." unique_id=1359276820 instance=ExtResource("3_42v6u")]
+position = Vector2(331, 159)
+
+[node name="Checkpoint9" parent="." unique_id=2107483319 instance=ExtResource("3_42v6u")]
+position = Vector2(400, 207)
+
+[node name="Checkpoint10" parent="." unique_id=504196835 instance=ExtResource("3_42v6u")]
+position = Vector2(358, 180)
+
+[node name="Checkpoint11" parent="." unique_id=879650340 instance=ExtResource("3_42v6u")]
+position = Vector2(269, 103)
+
+[node name="Checkpoint12" parent="." unique_id=1621775710 instance=ExtResource("3_42v6u")]
+position = Vector2(393, 110)
+
+[node name="Checkpoint13" parent="." unique_id=490359003 instance=ExtResource("3_42v6u")]
+position = Vector2(426, 150)
+
+[node name="Checkpoint14" parent="." unique_id=1688417149 instance=ExtResource("3_42v6u")]
+position = Vector2(603, 140)
+
+[node name="Checkpoint23" parent="." unique_id=914540850 instance=ExtResource("3_42v6u")]
+position = Vector2(443, 95)
+
+[node name="Checkpoint24" parent="." unique_id=1873739172 instance=ExtResource("3_42v6u")]
+position = Vector2(482, 158)
+
+[node name="Checkpoint25" parent="." unique_id=358662968 instance=ExtResource("3_42v6u")]
+position = Vector2(538, 204)
+
+[node name="Checkpoint26" parent="." unique_id=1050821586 instance=ExtResource("3_42v6u")]
+position = Vector2(513, 104)
+
+[node name="Checkpoint27" parent="." unique_id=1168705387 instance=ExtResource("3_42v6u")]
+position = Vector2(551, 155)
+
+[node name="Checkpoint28" parent="." unique_id=1046599839 instance=ExtResource("3_42v6u")]
+position = Vector2(592, 90)
+
+[node name="Checkpoint29" parent="." unique_id=1614970614 instance=ExtResource("3_42v6u")]
+position = Vector2(688, 176)
+
+[node name="Checkpoint15" parent="." unique_id=1578716285 instance=ExtResource("3_42v6u")]
+position = Vector2(641, 103)
+
+[node name="Checkpoint16" parent="." unique_id=1185569914 instance=ExtResource("3_42v6u")]
+position = Vector2(639, 187)
+
+[node name="Checkpoint17" parent="." unique_id=300737524 instance=ExtResource("3_42v6u")]
+position = Vector2(701, 131)
+
+[node name="Checkpoint18" parent="." unique_id=2002914100 instance=ExtResource("3_42v6u")]
+position = Vector2(735, 85)
+
+[node name="Checkpoint19" parent="." unique_id=724650316 instance=ExtResource("3_42v6u")]
+position = Vector2(755, 145)
+
+[node name="Checkpoint20" parent="." unique_id=1440809047 instance=ExtResource("3_42v6u")]
+position = Vector2(816, 118)
+
+[node name="Checkpoint21" parent="." unique_id=1582296500 instance=ExtResource("3_42v6u")]
+position = Vector2(871, 143)
+
+[node name="Checkpoint22" parent="." unique_id=710420046 instance=ExtResource("3_42v6u")]
+position = Vector2(325, 95)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1584633497]
+script = ExtResource("4_y1d8v")
+
+[node name="Fond" type="Sprite2D" parent="." unique_id=734871639]
+z_index = -5
+position = Vector2(480, 136)
+texture = ExtResource("5_42v6u")
