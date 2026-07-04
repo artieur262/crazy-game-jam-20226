@@ -4,10 +4,9 @@ extends Node2D
 class_name Checkpoint
 
 ## Liste des [Checkpoint] auquel celui-ci est connecté
-@export var connections: Array[Checkpoint]
+@export var connections: Array
 
-func _init(position: Vector2):
-	self.position = position
+func _init():
 	connections = []
 
 ## Ajoute le [Checkpoint] donnée à la liste des connection si il n'est pas déjà connecté.

@@ -1,19 +1,28 @@
 ## UI de la carte du monde.
 extends TileMapLayer
-class_name Map
+class_name Carte
 
 ## Rayon (en nombre de case) autour du personnages qui seront dévoillé lors des déplacements.
 @export var rayon_de_decouverte := 4
 ## Distance max (en pixels) entre deux [Checkpoint]
-@export var distance_max := 50
+@export var distance_max := 500
 
-## Liste des [Checkpoints] de cette [Map].
+## Liste des [Checkpoints] de cette [Carte].
 @export var checkpoints: Array[Checkpoint] = []
 
+@export var taille_carte := Vector2i(100, 75)
+
+@onready var camera := $Camera2D
+
+## Flag déterminant si un drag and drop est en cours.
+var dragging := false
 
 func _ready() -> void:
 	# Jeu.position_joueur.connect(mettre_a_jour)
 	Generateur.genere_routes(self)
+	for x in range(taille_carte.x):
+		for y in range(taille_carte.y):
+			set_cell(Vector2i(x, y), 1, Vector2i(0,0), 0)
 
 
 ## Connecté à [signal Jeu.position_joueur] pour mettre à jour la carte en
@@ -38,3 +47,14 @@ func decouvrir_autour_de_case(position_grille: Vector2i):
 		for j in range(-rayon_de_decouverte+1,rayon_de_decouverte):
 			erase_cell(Vector2i(position_grille.x+i, position_grille.y+j))
 	
+	
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouse:
+		if event.is_action("drag"):
+			dragging = event.is_pressed()
+		elif event.is_action_pressed("zoom"):
+			camera.modifier_zoom(0.3)
+		elif event.is_action_pressed("dezoom"):
+			camera.modifier_zoom(-0.3)
+	if event is InputEventMouseMotion and dragging:
+		camera.bouger(-event.relative)

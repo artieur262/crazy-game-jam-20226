@@ -1,0 +1,39 @@
+[gd_scene format=4 uid="uid://cyoq04t4gmnnp"]
+
+[ext_resource type="Texture2D" uid="uid://dohp7yb854xxl" path="res://textures/cat_atlas_texture.tres" id="1_6wmtm"]
+[ext_resource type="Script" uid="uid://uu8mtcincgvr" path="res://scenes/carte/Carte.gd" id="2_y1d8v"]
+[ext_resource type="PackedScene" uid="uid://djm47n33u1ohb" path="res://scenes/carte/Checkpoint.tscn" id="3_42v6u"]
+[ext_resource type="Script" uid="uid://dfq6h5ljq5fyc" path="res://scenes/carte/Camera.gd" id="4_y1d8v"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xn81g"]
+texture = ExtResource("1_6wmtm")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_csfff"]
+sources/1 = SubResource("TileSetAtlasSource_xn81g")
+
+[node name="TileMapLayer" type="TileMapLayer" unique_id=1149082585]
+tile_map_data = PackedByteArray("AAAXAAwAAQAAAAAAAAAYAAsAAQAAAAAAAAAYAAoAAQAAAAAAAAAXAAkAAQAAAAAAAAAXAAgAAQAAAAAAAAAXAAcAAQAAAAAAAAAWAAYAAQAAAAAAAAAWAAUAAQAAAAAAAAAVAAQAAQAAAAAAAAAUAAMAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_csfff")
+navigation_enabled = false
+script = ExtResource("2_y1d8v")
+taille_carte = Vector2i(100, 50)
+
+[node name="Checkpoint2" parent="." unique_id=1078793764 instance=ExtResource("3_42v6u")]
+position = Vector2(182, 108)
+
+[node name="Checkpoint" parent="." unique_id=174553439 instance=ExtResource("3_42v6u")]
+position = Vector2(118.99999, 66)
+
+[node name="Checkpoint3" parent="." unique_id=316762338 instance=ExtResource("3_42v6u")]
+position = Vector2(323, 171)
+
+[node name="Checkpoint4" parent="." unique_id=484008359 instance=ExtResource("3_42v6u")]
+position = Vector2(417, 179)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1584633497]
+script = ExtResource("4_y1d8v")
