@@ -7,7 +7,7 @@ class_name Carte
 signal checkpoint_selectionne(Checkpoint)
 
 ## Rayon (en nombre de case) autour du personnages qui seront dévoillé lors des déplacements.
-@export var rayon_de_decouverte := 4
+@export var rayon_de_decouverte := 2
 ## Distance max (en pixels) entre deux [Checkpoint]
 @export var distance_max := 500
 
@@ -33,13 +33,38 @@ func config():
 	Jeu.checkpoint_depart = depart
 	Jeu.checkpoint_arrive = arrive
 
+## Exporte les données en un dictionnaire pour être sauvergardées.
+## Sauvegarde la [Carte], les [Checkpoint]s et les routes.
+func export() -> Dictionary:
+	return {
+		"map": _export_map(),
+		"checkpoint": _export_checkpoint(),
+		"routes": _export_routes()
+	}
+
+func _export_map():
+	var tuiles_decouvertes: Array[Array]
+	for x in range(taille_carte.x):
+		for y in range(taille_carte.y):
+			if get_cell_source_id(Vector2i(x, y)) == null:
+				tuiles_decouvertes.append([x, y])
+	return tuiles_decouvertes
+
+func _export_checkpoint() -> Array:
+	var prepare: Array = []
+	for checkpoint in checkpoints:
+		prepare.append({
+			"pos": checkpoint.position
+		})
+
+
 ## Reset le brouillard en mettant du brouillard sur toutes
 ## les tuiles.
 func reset_brouillard() -> void:
-	Jeu.joueur_change_de_position.connect(decouvrir_autour)
+	Jeu.joueur_change_de_position.connect(_on_joueur_change_de_position)
 	for x in range(taille_carte.x):
 		for y in range(taille_carte.y):
-			set_cell(Vector2i(x, y), 1, Vector2i(0,0), 0)
+			set_cell(Vector2i(x, y), 0, Vector2i(0,0), 0)
 
 
 ## Reposition les [Checkpoint] pour qu'il soit centré sur les tuile.
@@ -64,9 +89,24 @@ func checkpointViaPos(pos: Vector2) -> Checkpoint:
 
 
 ## Connecté à [signal Jeu.position_joueur] pour mettre à jour la
-## [Carte] en fonction de la position du joueur.
-func _on_joueur_change_de_position(pos: Vector2) -> void:
-	decouvrir_autour(Vector2(200,200))
+## [Carte] en fonction des déplacements du joueur.
+func _on_joueur_change_de_position(
+		dest: Vector2, origine: Vector2) -> void:
+	var tuile_origine := local_to_map(origine)
+	var tuile_dest := local_to_map(dest)
+	var distance: Vector2i = tuile_dest-tuile_origine
+
+	var nombre_iteration: float = max(abs(distance.x), abs(distance.y), 1)
+	var i = 0
+	var step_x = float(distance.x)/nombre_iteration
+	var step_y = float(distance.y)/nombre_iteration
+	var pos := Vector2(tuile_origine)
+	while i < nombre_iteration:
+		pos.x += step_x
+		pos.y += step_y
+		decouvrir_autour_de_case(Vector2i(pos))
+		i += 1
+	decouvrir_autour_de_case(tuile_dest)
 
 
 ## Prend des coordonées globales et dévoiles les cases avec pour rayon [member rayon_de_decouverte].

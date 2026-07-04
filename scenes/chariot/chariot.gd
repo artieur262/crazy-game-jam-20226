@@ -19,7 +19,7 @@ func _enter_tree() -> void:
 	call_deferred("corriger_map")
 	var bouton: Button = $ConfirmationQuiter.add_button("Sauvegarder")
 	bouton.pressed.connect(self.sauvegarder)
-	carte.checkpointViaPos(Jeu.position_joueur).joueur_dessus(false)
+	carte.checkpointViaPos(Jeu.position_joueur).joueur_dessus(true)
 
 ## Corrige la [Carte] après une transformation du viewport
 ## (ou de la fenêtre) pour remettre la [Carte] en place.
@@ -78,11 +78,13 @@ func _on_direction_toggled(toggled_on: bool) -> void:
 
 ## Appellé quand le bouton "réparer le chariot" est appuyé.
 func _on_reparer_pressed() -> void:
+	Jeu.sauvegarder()
 	get_tree().change_scene_to_file("res://scenes/reparations/reparations.tscn")
 
 
 ## Appellé quand le bouton "explorer" est appuyé.
 func _on_explorer_pressed() -> void:
+	Jeu.sauvegarder()
 	get_tree().change_scene_to_file("res://scenes/explorations/explorations.tscn")
 
 

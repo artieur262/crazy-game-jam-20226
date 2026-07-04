@@ -6,12 +6,16 @@
 [ext_resource type="Script" uid="uid://dfq6h5ljq5fyc" path="res://scenes/carte/Camera.gd" id="4_y1d8v"]
 [ext_resource type="Texture2D" uid="uid://bkgtqncppiem8" path="res://assets/carte/map.png" id="5_42v6u"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_42v6u"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_701t1"]
 texture = ExtResource("1_42v6u")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_csfff"]
-sources/1 = SubResource("TileSetAtlasSource_42v6u")
+sources/0 = SubResource("TileSetAtlasSource_701t1")
 
 [node name="TileMapLayer" type="TileMapLayer" unique_id=1149082585 node_paths=PackedStringArray("depart", "arrive")]
 tile_set = SubResource("TileSet_csfff")

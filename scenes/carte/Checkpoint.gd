@@ -7,6 +7,8 @@ class_name Checkpoint
 ## Pour écouter indépendamment du checkpoint voir [signal Map.checkpoint_selectionne]
 signal selectionne
 
+## Id du checkpoint.
+var id: String
 ## [Carte] associé à ce checkpoint.
 @onready var carte: Carte = get_parent()
 ## Liste des [Checkpoint] auquel celui-ci est connecté
@@ -22,6 +24,7 @@ const PAS_DESSUS := preload("res://assets/carte/checkpoint.png")
 
 
 func _init():
+	id = randi()
 	visite = false
 	connections = []
 
@@ -53,7 +56,7 @@ func est_connecte(checkpoint: Checkpoint) -> bool:
 	return connections.has(checkpoint)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action("selectionner"):
+	if event.is_action_pressed("selectionner"):
 		var mouse_pos := get_local_mouse_position()
 		var rayon: Vector2 = Vector2.ONE * (5/carte.camera.zoom.x)
 		if (

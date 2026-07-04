@@ -25,7 +25,7 @@ static func genere_routes(carte: Carte):
 				pass
 			elif abs(index_a-index_b) == 1:
 				continue
-			if randi_range(0, 1) > 0:
+			if randi_range(0, 4) > 0:
 				checkpoint_a.deconnecte_checkpoint(checkpoint_b)
 	_dessiner_routes(carte, Jeu.checkpoint_depart, [])
 
@@ -83,7 +83,10 @@ static func _dessiner_routes(
 		if visite.has(checkpoint):
 			continue
 		_dessiner_route(carte, depart, checkpoint)
-		visite.append(checkpoint)
+	visite.append(depart)
+	for checkpoint in depart.liste_connection():
+		if visite.has(checkpoint):
+			continue
 		_dessiner_routes(carte, checkpoint, visite)
 
 ## Dessiner une route sur la [Carte].
