@@ -14,11 +14,11 @@ signal checkpoint_selectionne(Checkpoint)
 ## Liste des [Checkpoints] de cette [Carte].
 @export var checkpoints: Array[Checkpoint] = []
 
-## Taile de la carte en nombre de case.
+## Taile de la [Carte] en nombre de case.
 @export var taille_carte := Vector2i(100, 75)
-## [Checkpoint] de départ de la carte.
+## [Checkpoint] de départ de la [Carte].
 @export var depart: Checkpoint
-## [Checkpoint] d'arrivée de la carte.
+## [Checkpoint] d'arrivée de la [Carte].
 @export var arrive: Checkpoint
 
 ## [Camera2D] utilisée sur cette map.
@@ -27,10 +27,14 @@ signal checkpoint_selectionne(Checkpoint)
 ## Flag déterminant si un drag and drop est en cours.
 var dragging := false
 
+## Configure le jeu avec les [Checkpoint] de départ et
+## d'arrivée définit sur cette map.
 func config():
 	Jeu.checkpoint_depart = depart
 	Jeu.checkpoint_arrive = arrive
 
+## Reset le brouillard en mettant du brouillard sur toutes
+## les tuiles.
 func reset_brouillard() -> void:
 	Jeu.joueur_change_de_position.connect(decouvrir_autour)
 	for x in range(taille_carte.x):
@@ -59,8 +63,8 @@ func checkpointViaPos(pos: Vector2) -> Checkpoint:
 
 
 
-## Connecté à [signal Jeu.position_joueur] pour mettre à jour la carte en
-## fonction de la position du joueur.
+## Connecté à [signal Jeu.position_joueur] pour mettre à jour la
+## [Carte] en fonction de la position du joueur.
 func _on_joueur_change_de_position(pos: Vector2) -> void:
 	decouvrir_autour(Vector2(200,200))
 

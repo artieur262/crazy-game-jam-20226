@@ -29,26 +29,6 @@ static func genere_routes(carte: Carte):
 				checkpoint_a.deconnecte_checkpoint(checkpoint_b)
 	_dessiner_routes(carte, Jeu.checkpoint_depart, [])
 
-static func _dessiner_routes(
-		carte: Carte, depart: Checkpoint, visite: Array[Checkpoint]):
-	for checkpoint in depart.liste_connection():
-		if visite.has(checkpoint):
-			continue
-		_dessiner_route(carte, depart, checkpoint)
-		visite.append(checkpoint)
-		_dessiner_routes(carte, checkpoint, visite)
-
-static func _dessiner_route(
-		carte: Carte, debut: Checkpoint, fin: Checkpoint):
-	var ligne := Line2D.new()
-	carte.add_child(ligne)
-	ligne.width = 2
-	ligne.z_index -= 2
-	ligne.add_point(
-		debut.position)
-	ligne.add_point(
-		fin.position)
-
 ## Cherche tout les [Checkpoint] de la [Carte].
 static func _detecter_checkpoints(carte: Carte):
 	for child in carte.get_children():
@@ -95,3 +75,25 @@ static func _lister_routes(
 		routes.append_array(_lister_routes(
 			checkpoint_connecte, checkpoint_visites_copie))
 	return routes
+
+## Dessine les routes sur la [Carte].
+static func _dessiner_routes(
+		carte: Carte, depart: Checkpoint, visite: Array[Checkpoint]):
+	for checkpoint in depart.liste_connection():
+		if visite.has(checkpoint):
+			continue
+		_dessiner_route(carte, depart, checkpoint)
+		visite.append(checkpoint)
+		_dessiner_routes(carte, checkpoint, visite)
+
+## Dessiner une route sur la [Carte].
+static func _dessiner_route(
+		carte: Carte, debut: Checkpoint, fin: Checkpoint):
+	var ligne := Line2D.new()
+	carte.add_child(ligne)
+	ligne.width = 2
+	ligne.z_index -= 2
+	ligne.add_point(
+		debut.position)
+	ligne.add_point(
+		fin.position)
