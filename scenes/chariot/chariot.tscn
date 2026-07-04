@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d3htkwk2bka1l"]
 
 [ext_resource type="Script" uid="uid://dpnxah2yx1bet" path="res://scenes/chariot/chariot.gd" id="1_4f4h3"]
-[ext_resource type="PackedScene" uid="uid://cyoq04t4gmnnp" path="res://scenes/carte/Carte.tscn" id="2_4f4h3"]
+[ext_resource type="Texture2D" uid="uid://6jpmjw0ybsr" path="res://assets/chariot/chariot.png" id="2_4f4h3"]
 
 [node name="SceneChariot" type="VSplitContainer" unique_id=272062429]
 anchors_preset = 15
@@ -9,9 +9,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-split_offsets = PackedInt32Array(348)
+split_offsets = PackedInt32Array(261)
 dragger_visibility = 2
-split_offset = 348
+split_offset = 261
 script = ExtResource("1_4f4h3")
 
 [node name="MapSubViewportContainer" type="SubViewportContainer" parent="." unique_id=1878296894]
@@ -22,35 +22,56 @@ stretch = true
 
 [node name="MapSubViewport" type="SubViewport" parent="MapSubViewportContainer" unique_id=1964736245]
 handle_input_locally = false
-size = Vector2i(1152, 348)
+size = Vector2i(1152, 261)
 render_target_update_mode = 4
 
-[node name="TileMapLayer" parent="MapSubViewportContainer/MapSubViewport" unique_id=1149082585 instance=ExtResource("2_4f4h3")]
-
-[node name="Control" type="Control" parent="." unique_id=151804939]
-custom_minimum_size = Vector2(0, 150)
+[node name="EcranBas" type="Control" parent="." unique_id=1416171354]
 layout_mode = 2
 
-[node name="arriere plan" type="TextureRect" parent="Control" unique_id=825370736]
-custom_minimum_size = Vector2(0, 300)
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 300.0
+[node name="ArrierePlan" type="TextureRect" parent="EcranBas" unique_id=825370736]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Chariot" type="TextureRect" parent="Control" unique_id=551042146]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 300.0
+[node name="Interface" type="HBoxContainer" parent="EcranBas" unique_id=1231488748]
+custom_minimum_size = Vector2(0, 175)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Warnings" type="RichTextLabel" parent="EcranBas/Interface" unique_id=870294912]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="bouttons" type="Control" parent="EcranBas/Interface" unique_id=151804939]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ArrierePlan" type="TextureRect" parent="EcranBas/Interface/bouttons" unique_id=551042146]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+texture = ExtResource("2_4f4h3")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Boutons" type="VBoxContainer" parent="Control" unique_id=1359169803]
+[node name="Boutons" type="VBoxContainer" parent="EcranBas/Interface/bouttons" unique_id=1359169803]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -60,23 +81,36 @@ offset_left = -167.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Direction" type="Button" parent="Control/Boutons" unique_id=821122941]
+[node name="Direction" type="Button" parent="EcranBas/Interface/bouttons/Boutons" unique_id=821122941]
 layout_mode = 2
+toggle_mode = true
 text = "choisir une direction"
 
-[node name="Réparer" type="Button" parent="Control/Boutons" unique_id=244076767]
+[node name="Réparer" type="Button" parent="EcranBas/Interface/bouttons/Boutons" unique_id=244076767]
 layout_mode = 2
 text = "réparer le chariot"
 
-[node name="Explorer" type="Button" parent="Control/Boutons" unique_id=824842527]
+[node name="Explorer" type="Button" parent="EcranBas/Interface/bouttons/Boutons" unique_id=824842527]
 layout_mode = 2
 text = "explorer"
 
-[node name="Preparer un camp" type="Button" parent="Control/Boutons" unique_id=1555284971]
+[node name="PreparerUnCamp" type="Button" parent="EcranBas/Interface/bouttons/Boutons" unique_id=1555284971]
 layout_mode = 2
 text = "préparer un camp"
 
-[connection signal="pressed" from="Control/Boutons/Direction" to="." method="_on_direction_pressed"]
-[connection signal="pressed" from="Control/Boutons/Réparer" to="." method="_on_réparer_pressed"]
-[connection signal="pressed" from="Control/Boutons/Explorer" to="." method="_on_explorer_pressed"]
-[connection signal="pressed" from="Control/Boutons/Preparer un camp" to="." method="_on_préparer_un_camp_pressed"]
+[node name="Quiter" type="Button" parent="EcranBas/Interface/bouttons/Boutons" unique_id=847748558]
+layout_mode = 2
+text = "Quiter"
+
+[node name="ConfirmationQuiter" type="ConfirmationDialog" parent="." unique_id=42131232]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(213, 100)
+dialog_text = "Quiter sans sauvegarder?"
+
+[connection signal="toggled" from="EcranBas/Interface/bouttons/Boutons/Direction" to="." method="_on_direction_toggled"]
+[connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/Réparer" to="." method="_on_réparer_pressed"]
+[connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/Explorer" to="." method="_on_explorer_pressed"]
+[connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/PreparerUnCamp" to="." method="_on_préparer_un_camp_pressed"]
+[connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/Quiter" to="." method="_on_quiter_pressed"]
+[connection signal="confirmed" from="ConfirmationQuiter" to="." method="_on_confirmation_quiter_confirmed"]
