@@ -38,7 +38,7 @@ func config():
 func export() -> Dictionary:
 	return {
 		"carte": _export_map(),
-		"checkpoint": _export_checkpoint()
+		"checkpoints": _export_checkpoint()
 	}
 
 ## Liste les tuiles decouvertes.
@@ -48,7 +48,11 @@ func _export_map():
 		for y in range(taille_carte.y):
 			if get_cell_source_id(Vector2i(x, y)) == null:
 				tuiles_decouvertes.append([x, y])
-	return tuiles_decouvertes
+	return {
+		"tuiles_decouvertes": tuiles_decouvertes,
+		"depart": depart.id,
+		"arrive": arrive.id
+	}
 
 ## Exporte tout les [Checkcoint]s dans un liste contennant un dict
 ## exporte id, position, visite, [id des checkpoints connectes].
@@ -60,8 +64,11 @@ func _export_checkpoint() -> Array[Dictionary]:
 			checkpoints_connectes.append(checkpoint_connecte.id)
 		prepare.append({
 			"id": checkpoint.id,
-			"pos": checkpoint.position,
-			"visité": checkpoint.visite,
+			"pos": [
+				checkpoint.position.x,
+				checkpoint.position.y
+			],
+			"visite": checkpoint.visite,
 			"connections": checkpoints_connectes
 		})
 	return prepare
@@ -71,35 +78,9 @@ func _export_checkpoint() -> Array[Dictionary]:
 ## Peux mener à un import partiel ne pas utiliser si
 ## la fonctio retourne False.
 func _import(data: Dictionary[String, Variant]) -> bool:
-	if not _import_carte(data.get("carte")):
+	if not _import_checkpoint(data.get("checkpoints")):
 		return false
-	return _import_checkpoint(data)
-
-## Révèles la carte selon les données fournies.
-## Return false si une érreur a été trouvé dans les données.
-## Peux mener à un  dévoillement partiel ne pas utiliser si
-## la fonctio retourne False.
-func _import_carte(carte) -> bool:
-	if carte is not Array:
-		return false
-	for tuile in carte:
-		if tuile is Array:
-			if tuile.size() != 2:
-				return false
-			var x = tuile[0]
-			var y = tuile[1]
-			if x is float:
-				x = int(x)
-			elif x is not int:
-				return false
-			if y is float:
-				y = int(y)
-			elif y is not int:
-				return false
-			erase_cell(Vector2i(x, y))
-		else:
-			false
-	return true
+	return _import_carte(data.get("carte"))
 
 ## Importe les [Checkpoint]s via les données fournies.
 ## Peux mener à un import partiel ne pas utiliser si
@@ -111,15 +92,116 @@ func _import_checkpoint(data) -> bool:
 	Generateur.detecter_checkpoints(self)
 	for checkpoint in checkpoints:
 		checkpoint.queue_free()
-	checkpoints = []
+		
+	# utilisé temporairement pour rapidement connecter les
+	# checkpoints.
+	var checkpoints_dict: Dictionary[int, Checkpoint] = {}
+	# utilisé pour programmer la connection du checkpoint
+	# réfécence par l'id à la liste de checkpoitn référencés
+	# à l'id.
+	var checkpoints_connections: Dictionary[int, Array] = {}
+	# Récupère tout les checkpoints
 	for checkpoint in data:
-		if checkpoint is Dictionary:
-			var id = checkpoint.get("id", null)
-		else:
+		if checkpoint is not Dictionary:
 			return false
-	return false
-	
-	
+		checkpoint = checkpoint as Dictionary
+		# récupération des valeurs
+		var id = checkpoint.get("id", null)
+		var pos = checkpoint.get("pos", null)
+		var visite = checkpoint.get("visite", null)
+		var connections = checkpoint.get("connections", null)
+		# vérification des types
+		if id is not int:
+			return false
+		if pos is Array:
+			return false
+		pos = pos as Array
+		if pos.size() != 2:
+			return false
+		var pos_x = pos[0]
+		var pos_y = pos[1]
+		if pos_x is float:
+			pos_x = int(pos_x)
+		elif pos_x is not int:
+			return false
+		if pos_y is float:
+			pos_y = int(pos_x)
+		elif pos_y is not int:
+			return false
+		pos = Vector2i(pos_x, pos_y) as Vector2i
+		if visite is not bool:
+			return false
+		if connections is Array:
+			return false
+		connections = connections as Array
+		for connection in connections:
+			if connection is not int:
+				return false
+		# Création du noeud.
+		var checkpointNoeud = Checkpoint.new()
+		checkpointNoeud.id = id
+		checkpointNoeud.position = Vector2(pos_x, pos_y)
+		checkpointNoeud.visite = visite
+		# utilisé plus tard pour connecter les checkpoints
+		# (nécessite que tout les checkpoint ai été importés)
+		checkpoints_connections[id] = connections
+		checkpoints_dict[id] = checkpointNoeud
+	# connecte les checkpoints
+	for id in checkpoints_connections:
+		var checkpoint := checkpoints_dict[id]
+		for dest_checkpoint_id in checkpoints_connections[id]:
+			if not checkpoints_dict.has(dest_checkpoint_id):
+				return false
+			checkpoint.connecte_checkpoint(
+				checkpoints_dict[dest_checkpoint_id]
+			)
+	Generateur.dessiner_routes(
+		self, Jeu.checkpoint_depart, [])
+	return true
+
+## Révèles la carte selon les données fournies.
+## Return false si une érreur a été trouvé dans les données.
+## Peux mener à un  dévoillement partiel ne pas utiliser si
+## la fonctio retourne False.
+## Doit être appellé après avoir importé les checkpoints.
+func _import_carte(carte) -> bool:
+	if carte is not Dictionary:
+		return false
+	var checkpoint_depart = carte.get("depart")
+	var checkpoint_arrive = carte.get("arrive")
+	var found := 0
+	for checkpoint in checkpoints:
+		if checkpoint.id == checkpoint_depart:
+			depart = checkpoint
+			found += 1
+		if checkpoint.id == checkpoint_arrive:
+			arrive = checkpoint
+			found += 1
+	if found != 2:
+		return false
+	var tuiles = carte.get("tuiles_decouvertes")
+	if tuiles is not Array:
+		return false
+	tuiles = tuiles as Array
+	for tuile in tuiles:
+		if tuile is not Array:
+			return false
+		tuile = tuile as Array
+		if tuile.size() != 2:
+			return false
+		var x = tuile[0]
+		var y = tuile[1]
+		if x is float:
+			x = int(x)
+		elif x is not int:
+			return false
+		if y is float:
+			y = int(y)
+		elif y is not int:
+			return false
+		erase_cell(Vector2i(x, y))
+	return true
+
 
 ## Reset le brouillard en mettant du brouillard sur toutes
 ## les tuiles.

@@ -27,7 +27,7 @@ static func genere_routes(carte: Carte):
 				continue
 			if randi_range(0, 4) > 0:
 				checkpoint_a.deconnecte_checkpoint(checkpoint_b)
-	_dessiner_routes(carte, Jeu.checkpoint_depart, [])
+	dessiner_routes(carte, Jeu.checkpoint_depart, [])
 
 ## Cherche tout les [Checkpoint] de la [Carte].
 static func detecter_checkpoints(carte: Carte):
@@ -77,7 +77,7 @@ static func _lister_routes(
 	return routes
 
 ## Dessine les routes sur la [Carte].
-static func _dessiner_routes(
+static func dessiner_routes(
 		carte: Carte, depart: Checkpoint, visite: Array[Checkpoint]):
 	for checkpoint in depart.liste_connection():
 		if visite.has(checkpoint):
@@ -87,7 +87,7 @@ static func _dessiner_routes(
 	for checkpoint in depart.liste_connection():
 		if visite.has(checkpoint):
 			continue
-		_dessiner_routes(carte, checkpoint, visite)
+		dessiner_routes(carte, checkpoint, visite)
 
 ## Dessiner une route sur la [Carte].
 static func _dessiner_route(
