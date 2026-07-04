@@ -1,3 +1,32 @@
 [gd_scene format=3 uid="uid://dfu10v266f3jn"]
 
-[node name="Reparations" type="Node2D" unique_id=139154204]
+[ext_resource type="Script" uid="uid://dua7jao5uduku" path="res://scenes/reparations/reparations.gd" id="1_trvl0"]
+[ext_resource type="Texture2D" uid="uid://dx00gbky71qn2" path="res://assets/carte/checkpoint.png" id="1_vso2u"]
+
+[node name="Reparations" type="VBoxContainer" unique_id=746424102]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_trvl0")
+
+[node name="Main" type="HBoxContainer" parent="." unique_id=919921902]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Chariot" type="TextureRect" parent="Main" unique_id=1773621018]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("1_vso2u")
+
+[node name="Réparations" type="VBoxContainer" parent="Main" unique_id=1998370555]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Inventaires" type="Control" parent="." unique_id=594724779]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
