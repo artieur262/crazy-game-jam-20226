@@ -27,9 +27,20 @@ offset_top = 15.0
 offset_right = 85.0
 offset_bottom = 85.0
 
+[node name="Label_droite" type="Label" parent="bordure/droite" unique_id=1534799147]
+layout_mode = 0
+offset_right = 70.0
+offset_bottom = 70.0
+
 [node name="gauche" type="Panel" parent="bordure" unique_id=1919986759]
 layout_mode = 0
 offset_left = 415.0
 offset_top = 15.0
 offset_right = 485.0
 offset_bottom = 85.0
+
+[node name="Label_gauche" type="Label" parent="bordure/gauche" unique_id=515412652]
+layout_mode = 0
+offset_left = -400.0
+offset_right = -330.0
+offset_bottom = 70.0
