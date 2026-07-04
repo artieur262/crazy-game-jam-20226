@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d3htkwk2bka1l"]
 
 [ext_resource type="Script" uid="uid://dpnxah2yx1bet" path="res://scenes/chariot/chariot.gd" id="1_4f4h3"]
+[ext_resource type="PackedScene" uid="uid://cyoq04t4gmnnp" path="res://scenes/carte/Carte.tscn" id="2_4f4h3"]
 
 [node name="SceneChariot" type="VSplitContainer" unique_id=272062429]
 anchors_preset = 15
@@ -15,6 +16,7 @@ script = ExtResource("1_4f4h3")
 
 [node name="MapSubViewportContainer" type="SubViewportContainer" parent="." unique_id=1878296894]
 z_index = 10
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 stretch = true
 
@@ -23,7 +25,10 @@ handle_input_locally = false
 size = Vector2i(1152, 348)
 render_target_update_mode = 4
 
+[node name="TileMapLayer" parent="MapSubViewportContainer/MapSubViewport" unique_id=1149082585 instance=ExtResource("2_4f4h3")]
+
 [node name="Control" type="Control" parent="." unique_id=151804939]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
 [node name="arriere plan" type="TextureRect" parent="Control" unique_id=825370736]
@@ -37,7 +42,6 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="Chariot" type="TextureRect" parent="Control" unique_id=551042146]
-custom_minimum_size = Vector2(0, 300)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 300.0

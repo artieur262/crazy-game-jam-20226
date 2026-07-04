@@ -1,9 +1,17 @@
 extends VSplitContainer
 
-
 func _ready() -> void:
 	# Corrige la position du Node2D (qui bouge au lancement pour une raison inconue)
-	$MapSubViewportContainer/MapSubViewport/Map.position = Vector2.ZERO
+	$MapSubViewportContainer/MapSubViewport/TileMapLayer.position = Vector2.ZERO
+	get_window().size_changed.connect(corriger_map)
+	drag_ended.connect(corriger_map)
+	call_deferred("corriger_map")
+
+
+func corriger_map():
+	# Permet à la camera de réinitialiser ses variables internes.
+	$MapSubViewportContainer/MapSubViewport/TileMapLayer/Camera2D.modifier_zoom(0.1)
+	$MapSubViewportContainer/MapSubViewport/TileMapLayer/Camera2D.modifier_zoom(-0.1)
 
 
 ## Appellé quand le bouton "choisir une direction" est appuyé.

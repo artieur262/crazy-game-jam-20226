@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://cyoq04t4gmnnp"]
+[gd_scene format=3 uid="uid://cyoq04t4gmnnp"]
 
 [ext_resource type="Texture2D" uid="uid://dohp7yb854xxl" path="res://textures/cat_atlas_texture.tres" id="1_6wmtm"]
 [ext_resource type="Script" uid="uid://uu8mtcincgvr" path="res://scenes/carte/Carte.gd" id="2_y1d8v"]
@@ -17,7 +17,6 @@ texture_region_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_xn81g")
 
 [node name="TileMapLayer" type="TileMapLayer" unique_id=1149082585]
-tile_map_data = PackedByteArray("AAAXAAwAAQAAAAAAAAAYAAsAAQAAAAAAAAAYAAoAAQAAAAAAAAAXAAkAAQAAAAAAAAAXAAgAAQAAAAAAAAAXAAcAAQAAAAAAAAAWAAYAAQAAAAAAAAAWAAUAAQAAAAAAAAAVAAQAAQAAAAAAAAAUAAMAAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_csfff")
 navigation_enabled = false
 script = ExtResource("2_y1d8v")

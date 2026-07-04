@@ -31,24 +31,24 @@ func modifier_zoom(modification: float) -> bool:
 	if nouveau_zoom.x > dezoom_max:
 		taille_viewport = ancienne_taille
 		return false
-	nouveau_zoom = corriger_zoom_camera(nouveau_zoom)
+	nouveau_zoom = corriger_zoom(nouveau_zoom)
 	zoom = nouveau_zoom
 	corriger_position()
 	return true
 
 func corriger_position():
 	var bord_exterieur = position + (taille_viewport/2)
-	var board_interieur = position - (taille_viewport/2)
+	var bord_interieur = position - (taille_viewport/2)
 	if bord_exterieur.x > taille_map_pixel.x:
 		position.x = taille_map_pixel.x - (taille_viewport.x/2)
-	elif board_interieur.x < 0:
+	elif bord_interieur.x < 0:
 		position.x = taille_viewport.x/2
 	if bord_exterieur.y > taille_map_pixel.y:
 		position.y = taille_map_pixel.y - (taille_viewport.y/2)
-	elif board_interieur.y < 0:
+	elif bord_interieur.y < 0:
 		position.y = taille_viewport.y/2
 
-func corriger_zoom_camera(nouveau_zoom: Vector2) -> Vector2:
+func corriger_zoom(nouveau_zoom: Vector2) -> Vector2:
 	if taille_viewport.x > taille_map_pixel.x:
 		var zoom_int = max_zoom()
 		nouveau_zoom = Vector2(zoom_int, zoom_int)
