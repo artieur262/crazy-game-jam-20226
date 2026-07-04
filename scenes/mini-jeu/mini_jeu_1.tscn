@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dkdvl2dx8ln6j"]
+
+[ext_resource type="PackedScene" uid="uid://cy44ynlr3h6u6" path="res://scenes/mini-jeu/mini_jeu.tscn" id="1_m71dt"]
+[ext_resource type="Script" uid="uid://djwn8nyhb3y8x" path="res://scenes/mini-jeu/mini_jeu_1.gd" id="2_recge"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7fir2"]
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uj0ia"]
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="mini-jeu-1" unique_id=380734567 instance=ExtResource("1_m71dt")]
+script = ExtResource("2_recge")
+
+[node name="active_d" type="Panel" parent="bordure/interieur-ext/interieur-int" parent_id_path=PackedInt32Array(440662895) index="0" unique_id=557135018]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7fir2")
+
+[node name="active_r" type="Panel" parent="bordure/interieur-ext/interieur-int" parent_id_path=PackedInt32Array(440662895) index="1" unique_id=1909948187]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uj0ia")
