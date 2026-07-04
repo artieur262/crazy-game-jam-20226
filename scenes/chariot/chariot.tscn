@@ -51,7 +51,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Warnings" type="RichTextLabel" parent="EcranBas/Interface" unique_id=870294912]
+[node name="Console" type="RichTextLabel" parent="EcranBas/Interface" unique_id=870294912]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
@@ -88,7 +88,7 @@ layout_mode = 2
 toggle_mode = true
 text = "choisir une direction"
 
-[node name="Réparer" type="Button" parent="EcranBas/Interface/bouttons/Boutons" unique_id=244076767]
+[node name="Reparer" type="Button" parent="EcranBas/Interface/bouttons/Boutons" unique_id=244076767]
 layout_mode = 2
 text = "réparer le chariot"
 
@@ -111,7 +111,7 @@ size = Vector2i(213, 100)
 dialog_text = "Quiter sans sauvegarder?"
 
 [connection signal="toggled" from="EcranBas/Interface/bouttons/Boutons/Direction" to="." method="_on_direction_toggled"]
-[connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/Réparer" to="." method="_on_réparer_pressed"]
+[connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/Reparer" to="." method="_on_reparer_pressed"]
 [connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/Explorer" to="." method="_on_explorer_pressed"]
 [connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/PreparerUnCamp" to="." method="_on_préparer_un_camp_pressed"]
 [connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/Quiter" to="." method="_on_quiter_pressed"]

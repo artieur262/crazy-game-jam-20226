@@ -26,6 +26,11 @@ texture = ExtResource("1_vso2u")
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Main/Réparations" unique_id=1338828543]
+layout_mode = 2
+size_flags_vertical = 3
+text = "fqsfs"
+
 [node name="Inventaires" type="Control" parent="." unique_id=594724779]
 layout_mode = 2
 size_flags_vertical = 3
