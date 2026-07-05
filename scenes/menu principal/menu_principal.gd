@@ -23,6 +23,7 @@ func hide_all():
 	$ConfirmationSupprimer.hide()
 	$NomSauvagarde.hide()
 	$Sauvegardes.hide()
+	$Credits.hide()
 
 
 func _on_jouer_pressed() -> void:
@@ -42,6 +43,14 @@ func _on_valider_nom_pressed() -> void:
 	Generateur.genere_routes(Jeu.carte)
 	Jeu.position_joueur = Jeu.checkpoint_depart.position
 	Jeu.carte.reset_brouillard()
+	Jeu.inventaire.ajoute_item(Items.aiguilles, 1)
+	Jeu.inventaire.ajoute_item(Items.marchandise, 100)
+	Jeu.inventaire.ajoute_item(Items.bois, 5)
+	Jeu.inventaire.ajoute_item(Items.chanvre, 5)
+	Jeu.inventaire.ajoute_item(Items.eponge, 1)
+	Jeu.inventaire.ajoute_item(Items.seau, 1)
+	Jeu.inventaire.ajoute_item(Items.hache, 1)
+	Jeu.inventaire.ajoute_item(Items.marteau, 1)
 	get_tree().change_scene_to_file("res://scenes/chariot/chariot.tscn")
 
 func lire(sauvegarde: String):
@@ -55,7 +64,7 @@ func lire(sauvegarde: String):
 func _on_charger_pressed() -> void:
 	hide_all()
 	if sauvegardes_listes:
-		if len($Sauvegardes/Bouttons/Parties.get_children()) == 0:
+		if len($Sauvegardes/S/Bouttons/Parties.get_children()) == 0:
 			afficher("Aucune sauvegarde trouvée.")
 			$HBoxContainer/Charger.disabled = true
 			return
@@ -85,9 +94,9 @@ func _on_charger_pressed() -> void:
 		supprimer.text = "supprimer"
 		var bouttons: Array[Button] = [boutton, supprimer]
 		boutton.pressed.connect(func(): charger(id, bouttons))
-		$Sauvegardes/Bouttons/Parties.add_child(boutton)
+		$Sauvegardes/S/Bouttons/Parties.add_child(boutton)
 		supprimer.pressed.connect(func(): supprimer(id, bouttons))
-		$Sauvegardes/Bouttons/Supprimer.add_child(supprimer)
+		$Sauvegardes/S/Bouttons/Supprimer.add_child(supprimer)
 		trouve = true
 	if not trouve:
 		afficher("Aucune sauvegarde lisible trouvée.")
@@ -192,13 +201,14 @@ func afficher(text: String):
 	$Popup.title = text
 	$Popup.show()
 
-
 func _on_paramètres_pressed() -> void:
 	hide_all()
 	pass # Replace with function body.
 
-func _on_crédits_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/credit/credit.tscn")
+func _on_credits_pressed() -> void:
+	hide_all()
+	visible = false
+	$Credits.show()
 
 func _on_quiter_pressed() -> void:
 	hide_all()
@@ -206,3 +216,13 @@ func _on_quiter_pressed() -> void:
 
 func _on_confirmation_quiter_confirmed() -> void:
 	get_tree().quit(0)
+
+func _on_credits_close_requested() -> void:
+	hide_all()
+	visible = true
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.keycode == KEY_ESCAPE:
+			hide_all()
+			visible = true

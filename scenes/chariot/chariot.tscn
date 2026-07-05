@@ -54,6 +54,8 @@ grow_vertical = 2
 [node name="Console" type="RichTextLabel" parent="EcranBas/Interface" unique_id=870294912]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+bbcode_enabled = true
+scroll_following = true
 
 [node name="bouttons" type="Control" parent="EcranBas/Interface" unique_id=151804939]
 custom_minimum_size = Vector2(500, 0)

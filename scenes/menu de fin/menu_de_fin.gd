@@ -9,15 +9,22 @@ func hide_all():
 	$ConfirmationQuiter.hide()
 
 
-func _on_retou_menu_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/menu principal/menu principal.tscn")
+func _on_retour_au_menu_principal_pressed() -> void:
+	charger_menu_principal(false)
 
 func afficher(text: String):
 	$Popup.title = text
 	$Popup.show()
 
 func _on_crédits_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/credit/credit.tscn")
+	charger_menu_principal(true)
+
+func charger_menu_principal(credits := false) -> void:
+	var scene := preload("res://scenes/menu principal/menu principal.tscn")
+	var noeud := scene.instantiate()
+	if credits:
+		noeud._on_credits_pressed()
+	get_tree().change_scene_to_node(noeud)
 
 func _on_quiter_pressed() -> void:
 	hide_all()

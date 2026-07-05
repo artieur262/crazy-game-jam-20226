@@ -50,7 +50,7 @@ func _export_map():
 	var tuiles_decouvertes: Array[Array]
 	for x in range(taille_carte.x):
 		for y in range(taille_carte.y):
-			if get_cell_source_id(Vector2i(x, y)) == null:
+			if get_cell_tile_data(Vector2i(x, y)) == null:
 				tuiles_decouvertes.append([x, y])
 	return {
 		"tuiles_decouvertes": tuiles_decouvertes,

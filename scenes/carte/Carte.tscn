@@ -54,7 +54,7 @@ position = Vector2(331, 159)
 position = Vector2(400, 207)
 
 [node name="Checkpoint10" parent="." unique_id=504196835 instance=ExtResource("3_42v6u")]
-position = Vector2(358, 180)
+position = Vector2(352, 191)
 
 [node name="Checkpoint11" parent="." unique_id=879650340 instance=ExtResource("3_42v6u")]
 position = Vector2(269, 103)

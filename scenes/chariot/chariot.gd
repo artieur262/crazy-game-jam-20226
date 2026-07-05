@@ -6,15 +6,68 @@ var carte: Carte
 var en_deplacement := false
 
 
-## Initialise la scene avec la [Carte] fournie.
-func _ready() -> void:
+func chercher_map():
 	if carte == null:
 		carte = Jeu.carte
-	$MapSubViewportContainer/MapSubViewport.add_child(carte)
+		$MapSubViewportContainer/MapSubViewport.add_child(carte)
+
+## Initialise la scene avec la [Carte] fournie.
+func _ready() -> void:
+	chercher_map()
 	call_deferred("finish_init")
+	Jeu.nouveau_jour.connect(nouveau_jour)
+	Jeu.calcul_degats()
+	if Jeu.charette_immobilise:
+		afficher_info("[color=red]Votre charette est immobilisée suites à des dégâts.[/color]")
+	$EcranBas/Interface/bouttons/Boutons/Direction.disabled = Jeu.charette_immobilise
+	if Jeu.phase_actuelle == Jeu.PHASES.RESUME:
+		nouveau_jour()
+
+
+func nouveau_jour():
+	afficher_info("\n\n")
+	var count := 0
+	for resultat in Jeu.resultat_nuit:
+		count += 1
+		afficher_info("[color=red]%s[/color]" % resultat.nom)
+		afficher_info("%s\n" % resultat.description)
+		for impact in resultat.impacts:
+			afficher_info("%s, réquis pour réparer:" % impact.nom)
+			for objet in impact.objets_necessaires:
+				var couleur : String ="%s"
+				if Jeu.inventaire.quantite(objet) < impact.objets_necessaires[objet]:
+					couleur="[color=red]%s[/color]" 
+
+				afficher_info(couleur % ("-%s (%d/%d)" % [
+					objet.nom, 
+					Jeu.inventaire.quantite(objet),
+					impact.objets_necessaires[objet]
+				]))
+			for objet in impact.outils_necessaires:
+				var couleur : String ="%s\n"
+				if Jeu.inventaire.quantite(objet)==0:
+					couleur="[color=red]%s[/color]" 
+				afficher_info(couleur % ("-%s (%d/%d)" % [
+					objet.nom, 
+					Jeu.inventaire.quantite(objet),
+					1
+				]))
+		if resultat.vols:
+			afficher_info("Une partie de votre cargaison a pu être volée.")
+		
+	afficher_info("[color=%s]Il y a eu %d incidents cette nuit.[/color]." % [
+		"green" if count == 0 else "red",
+		count
+	])
+	if Jeu.charette_immobilise:
+		afficher_info("[color=red]Votre charette est immobilisée suites à des dégâts.[/color]")
+	$EcranBas/Interface/bouttons/Boutons/Direction.disabled = Jeu.charette_immobilise
 
 ## Finir l'initialisation après que la carte ai été configuré.
 func finish_init():
+	chercher_map()
+	if carte == null:
+		call_deferred("finish_init")
 	carte.checkpoint_selectionne.connect(_on_clic_checkpoint)
 	# Corrige la position du Node2D (qui bouge au lancement pour une raison inconue)
 	carte.position = Vector2.ZERO
@@ -24,6 +77,7 @@ func finish_init():
 	var bouton: Button = $ConfirmationQuiter.add_button("Sauvegarder")
 	bouton.pressed.connect(self.sauvegarder)
 	carte.checkpointViaPos(Jeu.position_joueur).joueur_dessus(true)
+	carte.decouvrir_autour(Jeu.position_joueur)
 	Jeu.preparer_jeu()
 
 ## Corrige la [Carte] après une transformation du viewport
@@ -43,6 +97,13 @@ func passer_en_phase_principale(auto_warning := false) -> bool:
 		return true
 	elif Jeu.phase_actuelle == Jeu.PHASES.SECONDE_SELECTION:
 		Jeu.prochaine_phase()
+		return true
+	elif Jeu.phase_actuelle == Jeu.PHASES.PHASE_DEUX:
+		Jeu.prochaine_phase()
+		Jeu.phase_actuelle = Jeu.PHASES.PHASE_UN
+		return true
+	elif Jeu.phase_actuelle == Jeu.PHASES.PHASE_UN:
+		Jeu.phase_actuelle = Jeu.PHASES.PHASE_DEUX
 		return true
 	if auto_warning:
 		afficher_info("Demande invalide pour ce stade du jeu.")
@@ -100,7 +161,7 @@ func est_visitable(
 ## Déplace le joueur vers le checkpoint indiqué.
 func aller_sur(checkpoint: Checkpoint):
 	if checkpoint == Jeu.checkpoint_arrive:
-		Jeu.fin.emit()
+		Jeu.fin()
 		return
 	carte.checkpointViaPos(Jeu.position_joueur).joueur_dessus(false)
 	Jeu.position_joueur = checkpoint.position
@@ -120,6 +181,7 @@ func _on_reparer_pressed() -> void:
 	if not passer_en_phase_principale(true):
 		return
 	Jeu.sauvegarder()
+	carte.get_parent().remove_child(carte)
 	get_tree().change_scene_to_file("res://scenes/reparations/reparations.tscn")
 
 
@@ -128,6 +190,7 @@ func _on_explorer_pressed() -> void:
 	if not passer_en_phase_principale(true):
 		return
 	Jeu.sauvegarder()
+	carte.get_parent().remove_child(carte)
 	get_tree().change_scene_to_file("res://scenes/explorations/explorations.tscn")
 
 

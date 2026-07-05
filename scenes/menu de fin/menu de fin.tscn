@@ -13,9 +13,9 @@ script = ExtResource("1_c7aal")
 [node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=1178897674]
 layout_mode = 2
 
-[node name="Retour au menu principale" type="Button" parent="HBoxContainer" unique_id=1519706698]
+[node name="Retour au menu principal" type="Button" parent="HBoxContainer" unique_id=1519706698]
 layout_mode = 2
-text = "Retour au menu principale"
+text = "Retour au menu principal"
 
 [node name="Crédits" type="Button" parent="HBoxContainer" unique_id=718367691]
 layout_mode = 2
@@ -52,7 +52,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Ok"
 
-[connection signal="pressed" from="HBoxContainer/Retour au menu principale" to="." method="_on_jouer_pressed"]
+[connection signal="pressed" from="HBoxContainer/Retour au menu principal" to="." method="_on_retour_au_menu_principal_pressed"]
 [connection signal="pressed" from="HBoxContainer/Crédits" to="." method="_on_crédits_pressed"]
 [connection signal="pressed" from="HBoxContainer/Quiter" to="." method="_on_quiter_pressed"]
 [connection signal="confirmed" from="ConfirmationQuiter" to="." method="_on_confirmation_quiter_confirmed"]
