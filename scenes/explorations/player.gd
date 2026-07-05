@@ -49,10 +49,11 @@ func _physics_process(delta: float) -> void:
 			avancement += delta
 			$Label.visible = false
 			$ProgressBar.visible = true
-			$ProgressBar.value = avancement/collider.temp*100
-			if avancement >= collider.temp:
-				collected(collider.collect())
-				avancement = 0
+			if collider:
+				$ProgressBar.value = avancement/collider.temp*100
+				if avancement >= collider.temp:
+					collected(collider.collect())
+					avancement = 0
 		else:
 			avancement = 0
 			$Label.visible = true

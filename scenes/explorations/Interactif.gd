@@ -11,7 +11,7 @@ enum LOOTS {
 @export var loot := LOOTS.ARBRE
 @export var unspawn_on_collect := false
 static var mask := 0b10
-@export var temp := 5.0
+@export var temp := 3.0
 var donne: Dictionary[Item, int] = {}
 
 
