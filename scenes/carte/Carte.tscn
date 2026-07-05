@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cyoq04t4gmnnp"]
+[gd_scene format=3 uid="uid://ddwdqf06jdr4n"]
 
 [ext_resource type="Texture2D" uid="uid://cbqfji7bwa8el" path="res://assets/carte/brouillard.png" id="1_42v6u"]
 [ext_resource type="Script" uid="uid://uu8mtcincgvr" path="res://scenes/carte/Carte.gd" id="2_y1d8v"]

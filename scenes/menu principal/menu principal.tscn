@@ -29,7 +29,6 @@ layout_mode = 2
 text = "Paramètres"
 
 [node name="Crédits" type="Button" parent="HBoxContainer" unique_id=718367691]
-visible = false
 layout_mode = 2
 text = "Crédits"
 
@@ -101,6 +100,7 @@ layout_mode = 2
 
 [node name="Popup" type="Window" parent="." unique_id=52553252]
 oversampling_override = 1.0
+mode = 2
 initial_position = 3
 size = Vector2i(300, 35)
 current_screen = 0

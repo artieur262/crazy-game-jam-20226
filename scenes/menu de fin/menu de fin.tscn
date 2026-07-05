@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://di02a22fn6lon"]
+
+[ext_resource type="Script" uid="uid://cqsqapudn7le8" path="res://scenes/menu de fin/menu_de_fin.gd" id="1_c7aal"]
+
+[node name="MenuFin" type="CenterContainer" unique_id=511400943]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c7aal")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=1178897674]
+layout_mode = 2
+
+[node name="Retour au menu principale" type="Button" parent="HBoxContainer" unique_id=1519706698]
+layout_mode = 2
+text = "Retour au menu principale"
+
+[node name="Crédits" type="Button" parent="HBoxContainer" unique_id=718367691]
+layout_mode = 2
+text = "Crédits"
+
+[node name="Quiter" type="Button" parent="HBoxContainer" unique_id=1014789269]
+layout_mode = 2
+text = "Quiter"
+
+[node name="ConfirmationQuiter" type="ConfirmationDialog" parent="." unique_id=647836651]
+oversampling_override = 1.0
+title = "Voulez-vous vraiment quiter?"
+initial_position = 2
+size = Vector2i(300, 100)
+
+[node name="Popup" type="Window" parent="." unique_id=52553252]
+oversampling_override = 1.0
+initial_position = 3
+size = Vector2i(300, 35)
+current_screen = 0
+visible = false
+
+[node name="Button" type="Button" parent="Popup" unique_id=1881559449]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -15.5
+offset_right = 50.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Ok"
+
+[connection signal="pressed" from="HBoxContainer/Retour au menu principale" to="." method="_on_jouer_pressed"]
+[connection signal="pressed" from="HBoxContainer/Crédits" to="." method="_on_crédits_pressed"]
+[connection signal="pressed" from="HBoxContainer/Quiter" to="." method="_on_quiter_pressed"]
+[connection signal="confirmed" from="ConfirmationQuiter" to="." method="_on_confirmation_quiter_confirmed"]
+[connection signal="close_requested" from="Popup" to="Popup" method="hide"]
+[connection signal="pressed" from="Popup/Button" to="Popup" method="hide"]
