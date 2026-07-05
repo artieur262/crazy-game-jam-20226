@@ -29,8 +29,6 @@ enum PHASES {
 ## Signal émit quand un nouveau jour début.
 ## Début sur [constant PHASES.RESUME] après que resultat_nuit soit rempli.
 signal nouveau_jour
-## Signal émit quand le joueur arrive à au [Checkpoint] de fin.
-signal fin()
 ## Signal émit quand le joueur change de position/[Checkpoint].
 ## Le premier arg est la destination le second est l'origine.
 signal joueur_change_de_position(dest: Vector2, origine: Vector2)
@@ -65,6 +63,8 @@ var resultat_nuit: Array[GameEvent]
 ## Saletée produite par le cheval peux causer [member EventsDommages.salete] et cause
 ## des dégradation à un certain seuil.
 var salete: int
+##
+var charette_immobilise := false
 
 ## Prépare une nouvelle partie.
 func nouvelle_partie():
@@ -91,7 +91,7 @@ func sauvegarder():
 		"position_joueur": [
 			position_joueur.x,
 			position_joueur.y
-		]
+		],
 	}
 	if not DirAccess.dir_exists_absolute("user://saves"):
 		DirAccess.make_dir_recursive_absolute("user://saves")
@@ -103,6 +103,7 @@ func sauvegarder():
 ## Ramène le joueur à la scene du chariot.
 func retour_chariot():
 	get_tree().change_scene_to_file("res://scenes/chariot/chariot.tscn")
+	prochaine_phase()
 
 ## Prépare le camp.
 ## Retourne un [bool] indiquant si le camp a été construit ou
@@ -128,11 +129,13 @@ func nuit():
 			"À force de laisser le cheval en liberté il nous salis la charrette.",
 			[EventsDommages.salete], false))
 		salete -= 40
+	calcul_degats()
 	prochaine_phase()
 
 ## Prépare la partie.
 func preparer_jeu():
-	prochaine_phase()
+	if phase_actuelle == PHASES.PREPARTIE:
+		prochaine_phase()
 
 ## Passe à la prochaine phase de jeu et la retourne.
 func prochaine_phase() -> PHASES:
@@ -140,6 +143,7 @@ func prochaine_phase() -> PHASES:
 		PHASES.PREPARTIE:
 			phase_actuelle = PHASES.PREMIERE_SELECTION
 		PHASES.RESUME:
+			nouveau_jour.emit()
 			jour += 1
 			phase_actuelle = PHASES.PREMIERE_SELECTION
 		PHASES.PREMIERE_SELECTION:
@@ -167,3 +171,61 @@ func retour_phase() -> PHASES:
 		PHASES.PHASE_DEUX:
 			phase_actuelle = PHASES.SECONDE_SELECTION
 	return phase_actuelle
+	
+	
+func fin():
+	get_tree().change_scene_to_file("res://scenes/menu de fin/menu de fin.tscn")
+
+func calcul_degats():
+	var solde_immobilisation := 20
+	var solde_casse := 60
+	for dommage in dommages:
+		if dommage == EventsDommages.roue_perdue:
+			solde_immobilisation -= 25
+			solde_casse -= 3
+		elif dommage == EventsDommages.habitacle:
+			solde_immobilisation -= 3
+			solde_casse -= 25
+		elif dommage == EventsDommages.rideau_habimes:
+			solde_immobilisation -= 0
+			solde_casse -= 2
+	charette_immobilise = solde_immobilisation < 0
+	if solde_casse < 0:
+		if randi_range(0, abs(solde_casse)):
+			perdu("Votre charette a pris trop de dégâts.")
+
+func perdu(message):
+	var center := CenterContainer.new()
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	
+	var vbox := VBoxContainer.new()
+	var label := Label.new()
+	var boutton := Button.new()
+	vbox.add_child(label)
+	vbox.add_child(boutton)
+	label.text = message
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	boutton.text = "Quiter"
+	boutton.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	boutton.pressed.connect(fin)
+	var freee := func ():
+		vbox.queue_free()
+		boutton.queue_free()
+		label.queue_free()
+		center.queue_free()
+	boutton.pressed.connect(freee)
+	center.add_child(vbox)
+	
+	for child in get_tree().root.get_children():
+		if child is Node2D:
+			pass
+		elif child is Control:
+			pass
+		elif child is Node3D:
+			pass
+		else:
+			continue
+		child.visible = false
+	get_tree().root.add_child(center)

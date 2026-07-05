@@ -6,9 +6,51 @@ var dommage_selectionne: Dommage
 func _ready():
 	$Window.visible=false
 	domages_initialises = {}
+	var roue := false
+	var habitacle := false
+	var rideau := false
 	for dommage in Jeu.dommages:
+		if dommage == EventsDommages.roue_perdue:
+			roue = true
+		elif dommage == EventsDommages.habitacle:
+			habitacle = true
+		elif dommage == EventsDommages.rideau_habimes:
+			rideau = true
 		ajouter_domages(dommage)
+	var res: Texture2D
+	if rideau:
+		res = preload("res://assets/reparations/chariot-pb-rideaux.png")
+	elif habitacle:
+		res = preload("res://assets/reparations/chariot-pb-habitacle.png")
+	elif roue:
+		res = preload("res://assets/reparations/chariot-pb-roue.png")
+	else:
+		res = preload("res://assets/reparations/chariot.png")
+	$Main/Chariot.texture = res
 	afficher_inventaire()
+
+func selectionner_image():
+	var roue := false
+	var habitacle := false
+	var rideau := false
+	for dommage in Jeu.dommages:
+		if dommage == EventsDommages.roue_perdue:
+			roue = true
+		elif dommage == EventsDommages.habitacle:
+			habitacle = true
+		elif dommage == EventsDommages.rideau_habimes:
+			rideau = true
+		ajouter_domages(dommage)
+	var res: Texture2D
+	if rideau:
+		res = preload("res://assets/reparations/chariot-pb-rideaux.png")
+	elif habitacle:
+		res = preload("res://assets/reparations/chariot-pb-habitacle.png")
+	elif roue:
+		res = preload("res://assets/reparations/chariot-pb-roue.png")
+	else:
+		res = preload("res://assets/reparations/chariot.png")
+	$Main/Chariot.texture = res
 
 func ajouter_domages(dommage: Dommage):
 	if domages_initialises.has(dommage.id):
@@ -18,18 +60,18 @@ func ajouter_domages(dommage: Dommage):
 	noeud.text += "Nécessite:\n"
 	noeud.bbcode_enabled = true
 	for objet in dommage.objets_necessaires:
-		var couleur : String ="%s"
+		var couleur : String ="%s\n"
 		if Jeu.inventaire.quantite(objet)<dommage.objets_necessaires[objet]:
 			couleur="[color=red]%s[/color]\n" 
-		noeud.text +=couleur % ("-%s (%d/%d)\n" % [
+		noeud.text +=couleur % ("-%s (%d/%d)" % [
 			objet.nom, 
 			Jeu.inventaire.quantite(objet),
 			dommage.objets_necessaires[objet]])
 	for objet in dommage.outils_necessaires:
-		var couleur : String ="%s"
+		var couleur : String ="%s\n"
 		if Jeu.inventaire.quantite(objet)==0:
 			couleur="[color=red]%s[/color]\n" 
-		noeud.text +=couleur % ("-%s (%d/%d)\n" % [
+		noeud.text +=couleur % ("-%s (%d/%d)" % [
 			objet.nom, 
 			Jeu.inventaire.quantite(objet),
 			1])
@@ -41,12 +83,14 @@ func ajouter_domages(dommage: Dommage):
 	$"Main/Réparations/B".add_child(noeud)
 	noeud.reparer.connect(_on_reparer)
 	noeud.dommage = dommage
+	selectionner_image()
 
 func supprimer_dommages(dommage: Dommage):
 	if not domages_initialises.has(dommage.id):
 		return
 	var noeud := domages_initialises[dommage.id]
 	$"Main/Réparations/B".remove_child(noeud)
+	selectionner_image()
 
 
 func afficher_inventaire():

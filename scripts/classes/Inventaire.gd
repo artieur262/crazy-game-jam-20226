@@ -80,8 +80,12 @@ func import(data) -> bool:
 	for item_id in data:
 		if item_id is not String:
 			return false
-		if contenu[item_id] is not int:
+		if data[item_id] is float:
+			data[item_id] = int(data[item_id])
+		elif data[item_id] is not int:
 			return false
 		var item := Items.by_id(item_id)
-		contenu[item] = contenu[item]
+		if item == null:
+			return false
+		contenu[item] = data[item_id]
 	return true

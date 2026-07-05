@@ -71,7 +71,7 @@ func _input(event: InputEvent) -> void:
 				mouse_pos.y > -rayon.y and
 				mouse_pos.x < rayon.x and
 				mouse_pos.y < rayon.y):
+			get_viewport().set_input_as_handled()
 			carte.checkpoint_selectionne.emit(self)
 			selectionne.emit(self)
-			get_viewport().set_input_as_handled()
 		pass

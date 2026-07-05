@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d02oqtywmjt11"]
 
 [ext_resource type="Script" uid="uid://cvhtbftg1xfsx" path="res://scenes/menu principal/menu_principal.gd" id="1_qx5sd"]
+[ext_resource type="PackedScene" uid="uid://c2v2awun5atr0" path="res://scenes/credit/credit.tscn" id="2_xorix"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osho2"]
 
@@ -28,8 +29,7 @@ visible = false
 layout_mode = 2
 text = "Paramètres"
 
-[node name="Crédits" type="Button" parent="HBoxContainer" unique_id=718367691]
-visible = false
+[node name="Credits" type="Button" parent="HBoxContainer" unique_id=718367691]
 layout_mode = 2
 text = "Crédits"
 
@@ -86,18 +86,31 @@ text = "Valider
 
 [node name="Sauvegardes" type="Window" parent="." unique_id=1946448164]
 oversampling_override = 1.0
+title = "Sauvergardes"
 initial_position = 2
+size = Vector2i(500, 200)
 visible = false
 
-[node name="Bouttons" type="HBoxContainer" parent="Sauvegardes" unique_id=873869259]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="S" type="ScrollContainer" parent="Sauvegardes" unique_id=1983192702]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Parties" type="VBoxContainer" parent="Sauvegardes/Bouttons" unique_id=1184207041]
+[node name="Bouttons" type="HBoxContainer" parent="Sauvegardes/S" unique_id=873869259]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Supprimer" type="VBoxContainer" parent="Sauvegardes/Bouttons" unique_id=1515157300]
+[node name="Parties" type="VBoxContainer" parent="Sauvegardes/S/Bouttons" unique_id=1184207041]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Supprimer" type="VBoxContainer" parent="Sauvegardes/S/Bouttons" unique_id=1515157300]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
 
 [node name="Popup" type="Window" parent="." unique_id=52553252]
 oversampling_override = 1.0
@@ -120,10 +133,18 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Ok"
 
+[node name="Credits" type="Window" parent="." unique_id=277488913]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(750, 400)
+visible = false
+
+[node name="Credit" parent="Credits" unique_id=1466875942 instance=ExtResource("2_xorix")]
+
 [connection signal="pressed" from="HBoxContainer/Jouer" to="." method="_on_jouer_pressed"]
 [connection signal="pressed" from="HBoxContainer/Charger" to="." method="_on_charger_pressed"]
 [connection signal="pressed" from="HBoxContainer/Paramètres" to="." method="_on_paramètres_pressed"]
-[connection signal="pressed" from="HBoxContainer/Crédits" to="." method="_on_crédits_pressed"]
+[connection signal="pressed" from="HBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="HBoxContainer/Quiter" to="." method="_on_quiter_pressed"]
 [connection signal="confirmed" from="ConfirmationQuiter" to="." method="_on_confirmation_quiter_confirmed"]
 [connection signal="canceled" from="ConfirmationSupprimer" to="ConfirmationSupprimer" method="hide"]
@@ -132,8 +153,13 @@ text = "Ok"
 [connection signal="close_requested" from="ConfirmationSupprimer" to="Sauvegardes" method="show"]
 [connection signal="confirmed" from="ConfirmationSupprimer" to="." method="_on_confirmation_supprimer_confirmed"]
 [connection signal="close_requested" from="NomSauvagarde" to="NomSauvagarde" method="hide"]
+[connection signal="window_input" from="NomSauvagarde" to="." method="_input"]
 [connection signal="pressed" from="NomSauvagarde/VBoxContainer/HBoxContainer/Annuler" to="NomSauvagarde" method="hide"]
 [connection signal="pressed" from="NomSauvagarde/VBoxContainer/HBoxContainer/Valider" to="." method="_on_valider_nom_pressed"]
 [connection signal="close_requested" from="Sauvegardes" to="Sauvegardes" method="hide"]
+[connection signal="window_input" from="Sauvegardes" to="." method="_input"]
 [connection signal="close_requested" from="Popup" to="Popup" method="hide"]
+[connection signal="window_input" from="Popup" to="." method="_input"]
 [connection signal="pressed" from="Popup/Button" to="Popup" method="hide"]
+[connection signal="close_requested" from="Credits" to="." method="_on_credits_close_requested"]
+[connection signal="window_input" from="Credits" to="." method="_input"]

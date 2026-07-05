@@ -19,7 +19,7 @@ var aiguilles := Outil.new("aiguilles", "aiguilles", 1)
 ## Marteau utilisé pour réparer le chariot.
 var marteau := Outil.new("marteau", "marteau",2)
 
-var items: Array[Item] = [bois, chanvre, hache, seau, aiguilles, marteau, eponge]
+var items: Array[Item] = [bois, chanvre, hache, seau, aiguilles, marteau, eponge, marchandise]
 
 func by_id(id: String) -> Item:
 	for item in items:
