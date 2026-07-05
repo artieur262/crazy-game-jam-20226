@@ -23,7 +23,7 @@ func _ready() -> void:
 		LOOTS.ARBRE:
 			donne = {Items.bois: 5}
 		LOOTS.CHANVRE:
-			donne = {Items.bois: 3}
+			donne = {Items.chanvre: 3}
 
 
 func collect() -> Dictionary[Item, int]:

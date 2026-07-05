@@ -33,7 +33,6 @@ signal nouveau_jour
 signal fin()
 ## Signal émit quand le joueur change de position/[Checkpoint].
 ## Le premier arg est la destination le second est l'origine.
->>>>>>> scenes
 signal joueur_change_de_position(dest: Vector2, origine: Vector2)
 ## Position du joueur sur la [member carte].
 var position_joueur: Vector2:
@@ -102,18 +101,6 @@ func sauvegarder():
 
 ## Ramène le joueur à la scene du chariot.
 func retour_chariot():
-	pass
-
-func prochaine_phase() -> PHASES:
-	match phase_actuelle:
-		PHASES.PREPARTIE: phase_actuelle = PHASES.PREMIERE_SELECTION
-		PHASES.RESUME: phase_actuelle = PHASES.PREMIERE_SELECTION
-		PHASES.PREMIERE_SELECTION: phase_actuelle = PHASES.PHASE_UN
-		PHASES.PHASE_UN: phase_actuelle = PHASES.SECONDE_SELECTION
-		PHASES.SECONDE_SELECTION: phase_actuelle = PHASES.PHASE_DEUX
-		PHASES.PHASE_DEUX: phase_actuelle = PHASES.NUIT
-		_: phase_actuelle = PHASES.RESUME
-	prochaine_phase()
 	get_tree().change_scene_to_file("res://scenes/chariot/chariot.tscn")
 
 ## Prépare le camp.
