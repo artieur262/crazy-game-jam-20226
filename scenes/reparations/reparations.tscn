@@ -35,6 +35,261 @@ size_flags_vertical = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Main/Réparations/B" unique_id=577345534]
 layout_mode = 2
+[node name="RichTextLabel" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1338828543]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1596518252]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Main/Réparations/B" unique_id=795001927]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="Main/Réparations/B" unique_id=427210790]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="Main/Réparations/B" unique_id=274600081]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="Main/Réparations/B" unique_id=117854922]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel7" type="RichTextLabel" parent="Main/Réparations/B" unique_id=637206637]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel8" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1428429142]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel9" type="RichTextLabel" parent="Main/Réparations/B" unique_id=880690202]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel10" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1122628498]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel11" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1449486485]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel12" type="RichTextLabel" parent="Main/Réparations/B" unique_id=2096070]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel13" type="RichTextLabel" parent="Main/Réparations/B" unique_id=959801334]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel14" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1894851280]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel15" type="RichTextLabel" parent="Main/Réparations/B" unique_id=402469539]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel16" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1691769902]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel17" type="RichTextLabel" parent="Main/Réparations/B" unique_id=16634818]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel18" type="RichTextLabel" parent="Main/Réparations/B" unique_id=349691834]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel19" type="RichTextLabel" parent="Main/Réparations/B" unique_id=2086529805]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel20" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1778312514]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel21" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1759639181]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel22" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1791211355]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel23" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1917547879]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel24" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1708253210]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel25" type="RichTextLabel" parent="Main/Réparations/B" unique_id=144447420]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel26" type="RichTextLabel" parent="Main/Réparations/B" unique_id=2146931828]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel27" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1979283306]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel28" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1456049293]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel29" type="RichTextLabel" parent="Main/Réparations/B" unique_id=230598348]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel30" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1368300838]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel31" type="RichTextLabel" parent="Main/Réparations/B" unique_id=2004203158]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel32" type="RichTextLabel" parent="Main/Réparations/B" unique_id=1042595392]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "fqsfs"
+fit_content = true
+scroll_active = false
 
 [node name="Inventaires" type="Control" parent="." unique_id=594724779]
 layout_mode = 2

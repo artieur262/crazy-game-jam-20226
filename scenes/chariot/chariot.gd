@@ -5,13 +5,11 @@ var en_deplacement := false
 
 
 ## Initialise la scene avec la [Carte] fournie.
-func init(arg_carte: Carte):
-	carte = arg_carte
+func _ready() -> void:
+	if carte == null:
+		carte = Jeu.carte
 	carte.checkpoint_selectionne.connect(_on_clic_checkpoint)
 	$MapSubViewportContainer/MapSubViewport.add_child(carte)
-
-
-func _enter_tree() -> void:
 	# Corrige la position du Node2D (qui bouge au lancement pour une raison inconue)
 	carte.position = Vector2.ZERO
 	get_window().size_changed.connect(corriger_map)
@@ -121,7 +119,7 @@ func _on_explorer_pressed() -> void:
 ## Appellé quand le bouton "préparer le camp" est appuyé.
 func _on_preparer_un_camp_pressed() -> void:
 	if not passer_en_phase_principale(true):
-		return
+		Jeu.preparer_camp()
 
 # ----------------- Quitter -----------------
 
