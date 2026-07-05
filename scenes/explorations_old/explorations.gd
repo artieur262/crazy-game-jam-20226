@@ -12,8 +12,9 @@ func _process(delta: float) -> void:
 
 func random_placement():
 	for obj:Node2D in $spawnable.get_children():
-		pass
+		pass	
+		
 
 func random_spaner(liste_parcouru:Variant, noeu:Node2D):
-	#var ran = randi_range(0)
-	pass
+	var ran = randi_range(0, 10)
+		

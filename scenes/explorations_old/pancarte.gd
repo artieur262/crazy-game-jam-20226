@@ -1,5 +1,6 @@
-extends Node2D
+extends RigidBody2D
 
+@onready var area_2d: Area2D = $Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -8,12 +9,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
-
-func random_placement():
-	for obj:Node2D in $spawnable.get_children():
-		pass
-
-func random_spaner(liste_parcouru:Variant, noeu:Node2D):
-	#var ran = randi_range(0)
 	pass

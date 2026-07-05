@@ -97,6 +97,9 @@ func est_visitable(
 
 ## Déplace le joueur vers le checkpoint indiqué.
 func aller_sur(checkpoint: Checkpoint):
+	if checkpoint == Jeu.checkpoint_arrive:
+		Jeu.fin.emit()
+		return
 	carte.checkpointViaPos(Jeu.position_joueur).joueur_dessus(false)
 	Jeu.position_joueur = checkpoint.position
 	checkpoint.joueur_dessus(true)

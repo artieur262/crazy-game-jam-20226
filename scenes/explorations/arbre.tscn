@@ -1,19 +1,32 @@
 [gd_scene format=3 uid="uid://b0ion66uicmun"]
 
-[ext_resource type="Texture2D" uid="uid://dbus1v0hdu6ih" path="res://assets/exploration/tf_B_ashlands_3.png" id="1_yjkbv"]
+[ext_resource type="Script" uid="uid://dutimxk2yalmb" path="res://scenes/explorations/arbre.gd" id="1_ardwg"]
+[ext_resource type="Texture2D" uid="uid://byujkxsnw4gg1" path="res://assets/exploration/changing/arbre.png" id="1_yjkbv"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ibgpm"]
-atlas = ExtResource("1_yjkbv")
-region = Rect2(97.12002, 338.40002, 98.4, 185.68)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s2irm"]
+radius = 24.0
+height = 86.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a4gx2"]
-size = Vector2(34, 104.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ardwg"]
+size = Vector2(118, 129)
 
-[node name="arbre" type="RigidBody2D" unique_id=566081140]
+[node name="arbre" type="StaticBody2D" unique_id=1732968562]
+script = ExtResource("1_ardwg")
+unspawn_on_collect = true
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=923106058]
-texture = SubResource("AtlasTexture_ibgpm")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=434963250]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_yjkbv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2053640172]
-position = Vector2(-1, 4.25)
-shape = SubResource("RectangleShape2D_a4gx2")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1773353677]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_s2irm")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1584226991]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=81995637]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ardwg")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

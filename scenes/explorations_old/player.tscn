@@ -1,58 +1,58 @@
-[gd_scene format=3 uid="uid://dtcse10aej501"]
+[gd_scene format=3 uid="uid://wht4lm1wbrai"]
 
-[ext_resource type="Script" uid="uid://bh5h2ikc1y5op" path="res://scenes/explorations/player.gd" id="1_c51md"]
-[ext_resource type="Texture2D" uid="uid://cbaq2aho71sxt" path="res://assets/exploration/S5_body_N.png" id="3_fkq1w"]
+[ext_resource type="Script" uid="uid://cxk4rgfqop41" path="res://scenes/explorations_old/player.gd" id="1_ju420"]
+[ext_resource type="Texture2D" uid="uid://cbaq2aho71sxt" path="res://assets/exploration/S5_body_N.png" id="2_gutin"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c51md"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(48, 0, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fkq1w"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(0, 0, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xpww3"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(48, 0, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aaqm6"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(96, 0, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8j6fe"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(0, 60, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5r72x"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(48, 60, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m2wmc"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(96, 60, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t7tnw"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(0, 120, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8jetj"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(48, 120, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3c002"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(96, 120, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kb0wf"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(0, 180, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tvhix"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(48, 180, 48, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c1akh"]
-atlas = ExtResource("3_fkq1w")
+atlas = ExtResource("2_gutin")
 region = Rect2(96, 180, 48, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_arv63"]
@@ -127,51 +127,17 @@ radius = 7.0
 height = 28.0
 
 [node name="player" type="CharacterBody2D" unique_id=604847441]
-script = ExtResource("1_c51md")
+script = ExtResource("1_ju420")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=584196937]
 z_index = 10
 position = Vector2(0, -2)
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_arv63")
-animation = &"walk_down"
+animation = &"walk_up"
 autoplay = "idle"
-frame_progress = 0.55994064
+frame = 2
+frame_progress = 0.92012185
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1221298]
 shape = SubResource("CapsuleShape2D_asygh")
-
-[node name="Label" type="Label" parent="." unique_id=1725878582]
-z_index = 20
-offset_left = -4.5
-offset_top = -40.0
-offset_right = 4.5
-offset_bottom = -17.0
-text = "E"
-
-[node name="Panel" type="Panel" parent="Label" unique_id=1435245553]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1247500672]
-offset_left = -25.0
-offset_top = 20.0
-offset_right = 75.0
-offset_bottom = 47.0
-scale = Vector2(0.5, 0.5)
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=905282989]
-zoom = Vector2(2, 2)
-
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=80450317]
-target_position = Vector2(0, -30)
-collision_mask = 0
-
-[node name="Notifs" type="VBoxContainer" parent="." unique_id=481742189]
-offset_left = -230.0
-offset_right = -155.0
-offset_bottom = 40.0

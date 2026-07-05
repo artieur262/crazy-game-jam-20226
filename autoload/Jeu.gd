@@ -1,33 +1,72 @@
+## Singleton contenant l'état du jeu.
 extends Node
 
+## Liste des phases possibles pour le jeu.
 enum PHASES {
+	## Prépartie, avant que l'utilisateur puisse interragir un tuto/résumé ou autre.
+	## Suite: [constant PREMIERE_SELECTION].
 	PREPARTIE,
+	## Résumé de ce qu'il s'est passé durant la nuit.
+	## Suite: [constant PREMIERE_SELECTION].
 	RESUME,
+	## Première phase de selection d'une action.
+	## Suite: [constant PHASE_UN].
 	PREMIERE_SELECTION,
+	## Phase d'action un.
+	## Suite: [constant SECONDE_SELECTION].
 	PHASE_UN,
+	## Deuxieme phase de selection d'une action.
+	## Suite: [constant PHASE_DEUX].
 	SECONDE_SELECTION,
+	## Phase d'action deux.
+	## Suite: [constant NUIT].
 	PHASE_DEUX,
+	## Phase de nuit.
+	## Suite: [constant RESUME]
 	NUIT
 }
 
+## Signal émit quand un nouveau jour début.
+## Début sur [constant PHASES.RESUME] après que resultat_nuit soit rempli.
+signal nouveau_jour
+## Signal émit quand le joueur arrive à au [Checkpoint] de fin.
+signal fin()
+## Signal émit quand le joueur change de position/[Checkpoint].
+## Le premier arg est la destination le second est l'origine.
 signal joueur_change_de_position(dest: Vector2, origine: Vector2)
+## Position du joueur sur la [member carte].
 var position_joueur: Vector2:
 	set(pos):
-		joueur_change_de_position.emit(pos, position_joueur)
+		var ancienne_pos := position_joueur
 		position_joueur = pos
+		joueur_change_de_position.emit(position_joueur, ancienne_pos)
+## [Checkpoint] de départ.
 var checkpoint_depart: Checkpoint
+## [Checkpoint] d'arrivée.
 var checkpoint_arrive: Checkpoint
+## [Carte] utilisée sur cette partie.
 var carte: Carte
+## Id de la partie.
 var id: int
+## Nom de la partie.
 var nom: String
+## [Dommage]s du chariot.
 var dommages: Array[Dommage]
+## [Inventaire] du joueur.
 var inventaire: Inventaire
+## Phase actuelle du jeu.
 var phase_actuelle: PHASES
+## Flag qui indique si le camp est installé.
 var camp_pret: bool
+## Nombre de jours écoulés.
 var jour: int
+## [GameEvent] qui se sont passé durant la nuit.
 var resultat_nuit: Array[GameEvent]
+## Saletée produite par le cheval peux causer [member EventsDommages.salete] et cause
+## des dégradation à un certain seuil.
 var salete: int
 
+## Prépare une nouvelle partie.
 func nouvelle_partie():
 	id = (randi() << 32&0x00FFFFFF) | randi()
 	inventaire = Inventaire.new()
@@ -63,7 +102,6 @@ func sauvegarder():
 
 ## Ramène le joueur à la scene du chariot.
 func retour_chariot():
-	prochaine_phase()
 	get_tree().change_scene_to_file("res://scenes/chariot/chariot.tscn")
 
 ## Prépare le camp.
@@ -96,7 +134,7 @@ func nuit():
 func preparer_jeu():
 	prochaine_phase()
 
-## Passe à la prochaine phase de jeu et la retourne..
+## Passe à la prochaine phase de jeu et la retourne.
 func prochaine_phase() -> PHASES:
 	match phase_actuelle:
 		PHASES.PREPARTIE:
@@ -117,7 +155,7 @@ func prochaine_phase() -> PHASES:
 			phase_actuelle = PHASES.RESUME
 	return phase_actuelle
 
-## Retourne à la phase précédente de jeu et la retourne..
+## Retourne à la phase précédente de jeu et la retourne.
 func retour_phase() -> PHASES:
 	match phase_actuelle:
 		PHASES.PREMIERE_SELECTION:
