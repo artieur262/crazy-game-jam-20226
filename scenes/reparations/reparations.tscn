@@ -33,25 +33,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Inventaires" type="Control" parent="." unique_id=594724779]
+[node name="I" type="ScrollContainer" parent="." unique_id=405335551]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Inventaires" unique_id=1127891514]
-layout_mode = 0
-offset_right = 917.0
-offset_bottom = 210.0
-
-[node name="Button" type="Button" parent="Inventaires" unique_id=228404879]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -236.0
-offset_bottom = 88.0
-grow_horizontal = 0
-text = "réparer"
+[node name="Inventaire" type="GridContainer" parent="I" unique_id=1800267098]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+columns = 10
 
 [node name="Window" type="Window" parent="." unique_id=1581355035]
 oversampling_override = 1.0
@@ -61,6 +53,31 @@ size = Vector2i(500, 100)
 
 [node name="mini-jeu-1" parent="Window" unique_id=380734567 instance=ExtResource("3_40uvp")]
 
-[connection signal="button_down" from="Inventaires/Button" to="." method="_on_button_button_down"]
+[node name="Timer" type="Timer" parent="." unique_id=582570492]
+
+[node name="Controles" type="HBoxContainer" parent="." unique_id=1461657226]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Controles" unique_id=1054593827]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cliquez sur une des options ci-dessous pour la réparer."
+
+[node name="Button" type="Button" parent="Controles" unique_id=288978022]
+layout_mode = 2
+text = "retour au chariot"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=477166946]
+oversampling_override = 1.0
+title = "Êtes-vous sûr de vouloir retourner au chariot?"
+initial_position = 2
+size = Vector2i(400, 80)
+cancel_button_text = "Annuler"
+
 [connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]
 [connection signal="quitter" from="Window/mini-jeu-1" to="." method="_on_minijeu_1_quitter"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Controles/Button" to="." method="_on_button_pressed"]
+[connection signal="canceled" from="ConfirmationDialog" to="ConfirmationDialog" method="hide"]
+[connection signal="close_requested" from="ConfirmationDialog" to="ConfirmationDialog" method="hide"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
