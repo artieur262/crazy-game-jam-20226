@@ -18,26 +18,57 @@ var position_joueur: Vector2:
 var checkpoint_depart: Checkpoint
 var checkpoint_arrive: Checkpoint
 var carte: Carte
+var id: int
 var nom: String
 var dommages: Array[Dommage]
-var phase_actuelle: PHASES
 var inventaire: Inventaire
-
+var phase_actuelle: PHASES
+var camp_pret: bool
+var jour: int
 
 func _init():
 	inventaire = Inventaire.new()
+	phase_actuelle = PHASES.PREPARTIE
+	camp_pret = true
+	jour = 0
 
 ## Sauvegarde la partie.
 func sauvegarder():
-	pass
-
-## Liste les sauvagerdes.
-func lister_sauvegardes() -> Array:
-	return []
+	var donnees := {
+		"id": id,
+		"carte": carte.export(),
+		"dommages": Dommage._exports(dommages),
+		"inventaire": inventaire.export(),
+		"jour": jour,
+		"camp_pret": camp_pret,
+		"phase_actuelle": phase_actuelle
+	}
+	var file := FileAccess.open(
+		"user://saves/%d.json" % id, FileAccess.WRITE)
+	file.store_string(JSON.stringify(donnees))
+	file.close()
 
 ## Ramène le joueur à la scene du chariot.
 func retour_chariot():
-	pass
+	prochaine_phase()
+	get_tree().change_scene_to_file("res://scenes/chariot/chariot.tscn")
+
+## Prépare le camp.
+## Retourne un [bool] indiquant si le camp a été construit ou
+## si il était déjà en place.
+func preparer_camp() -> bool:
+	if camp_pret:
+		return false
+	camp_pret = true
+	return true
+
+## Code executant les malus de nuit.
+func nuit():
+	prochaine_phase()
+
+## Prépare la partie.
+func preparer_jeu():
+	prochaine_phase()
 
 ## Passe à la prochaine phase de jeu et la retourne..
 func prochaine_phase() -> PHASES:
@@ -45,6 +76,7 @@ func prochaine_phase() -> PHASES:
 		PHASES.PREPARTIE:
 			phase_actuelle = PHASES.PREMIERE_SELECTION
 		PHASES.RESUME:
+			jour += 1
 			phase_actuelle = PHASES.PREMIERE_SELECTION
 		PHASES.PREMIERE_SELECTION:
 			phase_actuelle = PHASES.PHASE_UN
@@ -54,6 +86,20 @@ func prochaine_phase() -> PHASES:
 			phase_actuelle = PHASES.PHASE_DEUX
 		PHASES.PHASE_DEUX:
 			phase_actuelle = PHASES.NUIT
+			nuit()
 		_:
 			phase_actuelle = PHASES.RESUME
+	return phase_actuelle
+
+## Retourne à la phase précédente de jeu et la retourne..
+func retour_phase() -> PHASES:
+	match phase_actuelle:
+		PHASES.PREMIERE_SELECTION:
+			phase_actuelle = PHASES.RESUME
+		PHASES.PHASE_UN:
+			phase_actuelle = PHASES.PREMIERE_SELECTION
+		PHASES.SECONDE_SELECTION:
+			phase_actuelle = PHASES.PHASE_UN
+		PHASES.PHASE_DEUX:
+			phase_actuelle = PHASES.SECONDE_SELECTION
 	return phase_actuelle
