@@ -14,15 +14,14 @@ func selectionner_image():
 	var habitacle := false
 	var rideau := false
 	for dommage in Jeu.dommages:
-		supprimer_dommages(dommage)
-		ajouter_domages(dommage)
+		supprimer_dommages(dommage, false)
+		ajouter_domages(dommage, false)
 		if dommage == EventsDommages.roue_perdue:
 			roue = true
 		elif dommage == EventsDommages.habitacle:
 			habitacle = true
 		elif dommage == EventsDommages.rideau_habimes:
 			rideau = true
-		ajouter_domages(dommage)
 	var res: Texture2D
 	if rideau:
 		res = preload("res://assets/reparations/chariot-pb-rideaux.png")
@@ -34,7 +33,7 @@ func selectionner_image():
 		res = preload("res://assets/reparations/chariot.png")
 	$Main/Chariot.texture = res
 
-func ajouter_domages(dommage: Dommage):
+func ajouter_domages(dommage: Dommage, reload := true):
 	if domages_initialises.has(dommage.id):
 		return
 	var noeud := ReparationItem.new()
@@ -65,14 +64,16 @@ func ajouter_domages(dommage: Dommage):
 	$"Main/Réparations/B".add_child(noeud)
 	noeud.reparer.connect(_on_reparer)
 	noeud.dommage = dommage
-	selectionner_image()
+	if reload:
+		selectionner_image()
 
-func supprimer_dommages(dommage: Dommage):
+func supprimer_dommages(dommage: Dommage, reload := true):
 	if not domages_initialises.has(dommage.id):
 		return
 	var noeud := domages_initialises[dommage.id]
 	$"Main/Réparations/B".remove_child(noeud)
-	selectionner_image()
+	if reload:
+		selectionner_image()
 
 
 func afficher_inventaire():
