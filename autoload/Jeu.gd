@@ -24,6 +24,7 @@ var phase_actuelle: PHASES
 var inventaire: Inventaire
 
 
+
 func _init():
 	inventaire = Inventaire.new()
 
