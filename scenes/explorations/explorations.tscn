@@ -2950,7 +2950,7 @@ script = ExtResource("1_2gyim")
 
 [node name="player" parent="." unique_id=604847441 instance=ExtResource("1_sibwr")]
 z_index = 10
-position = Vector2(0, 71)
+position = Vector2(0, 96)
 
 [node name="TileMaps" type="Node2D" parent="." unique_id=373435344]
 
