@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://b0ion66uicmun"]
+
+[node name="arbre" type="RigidBody2D" unique_id=566081140]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=923106058]
