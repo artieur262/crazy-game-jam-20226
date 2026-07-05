@@ -75,6 +75,7 @@ func nouvelle_partie():
 	jour = 0
 	salete = 0
 
+
 ## Sauvegarde la partie.
 func sauvegarder():
 	var donnees := {
@@ -167,3 +168,8 @@ func retour_phase() -> PHASES:
 		PHASES.PHASE_DEUX:
 			phase_actuelle = PHASES.SECONDE_SELECTION
 	return phase_actuelle
+	
+	
+func arriver_destination():
+	if checkpoint_arrive.visite == true:
+		get_tree().change_scene_to_file("res://scenes/menu de fin/menu de fin.tscn")

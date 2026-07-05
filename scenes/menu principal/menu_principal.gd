@@ -198,7 +198,7 @@ func _on_paramètres_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_crédits_pressed() -> void:
-	hide_all()
+	get_tree().change_scene_to_file("res://scenes/credit/credit.tscn")
 
 func _on_quiter_pressed() -> void:
 	hide_all()

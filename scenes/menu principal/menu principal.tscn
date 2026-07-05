@@ -29,7 +29,6 @@ layout_mode = 2
 text = "Paramètres"
 
 [node name="Crédits" type="Button" parent="HBoxContainer" unique_id=718367691]
-visible = false
 layout_mode = 2
 text = "Crédits"
 
