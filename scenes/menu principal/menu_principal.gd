@@ -2,6 +2,14 @@ extends CenterContainer
 
 var sauvegardes: Array = []
 
+## Liste les sauvagerdes.
+func lister_sauvegardes() -> Array:
+	var noms := []
+	for nom in DirAccess.get_files_at("res://saves"):
+		if nom.ends_with(".json"):
+			noms.append(nom)
+	return noms
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sauvegardes = Jeu.lister_sauvegardes()
@@ -22,7 +30,6 @@ func _on_valider_nom_pressed() -> void:
 	Jeu.carte = carte_scene.instantiate()
 	Jeu.carte.config()
 	Generateur.genere_routes(Jeu.carte)
-	Jeu.phase_actuelle = Jeu.PHASES.PREPARTIE
 	Jeu.position_joueur = Jeu.checkpoint_depart.position
 	Jeu.carte.reset_brouillard()
 	Jeu.position_joueur = Jeu.checkpoint_depart.position
