@@ -25,24 +25,36 @@ var inventaire: Inventaire
 var phase_actuelle: PHASES
 var camp_pret: bool
 var jour: int
+var resultat_nuit: Array[GameEvent]
+var salete: int
 
-func _init():
+func nouvelle_partie():
+	id = (randi() << 32&0x00FFFFFF) | randi()
 	inventaire = Inventaire.new()
 	phase_actuelle = PHASES.PREPARTIE
 	camp_pret = true
 	jour = 0
+	salete = 0
 
 ## Sauvegarde la partie.
 func sauvegarder():
 	var donnees := {
 		"id": id,
+		"nom": nom,
 		"carte": carte.export(),
-		"dommages": Dommage._exports(dommages),
+		"dommages": Dommage.exports(dommages),
 		"inventaire": inventaire.export(),
 		"jour": jour,
 		"camp_pret": camp_pret,
-		"phase_actuelle": phase_actuelle
+		"phase_actuelle": phase_actuelle,
+		"salete": 0,
+		"position_joueur": [
+			position_joueur.x,
+			position_joueur.y
+		]
 	}
+	if not DirAccess.dir_exists_absolute("user://saves"):
+		DirAccess.make_dir_recursive_absolute("user://saves")
 	var file := FileAccess.open(
 		"user://saves/%d.json" % id, FileAccess.WRITE)
 	file.store_string(JSON.stringify(donnees))
@@ -64,6 +76,19 @@ func preparer_camp() -> bool:
 
 ## Code executant les malus de nuit.
 func nuit():
+	resultat_nuit = EventsDommages.applique()
+	salete += randi_range(0, 10)
+	if randi_range(0, dommages.count(EventsDommages.salete)*3):
+		resultat_nuit.append(GameEvent.new(
+			"Saleté",
+			"La saleté qui s'est accumulée sur la chariot l'a dégradé.",
+			[EventsDommages.habitacle], false))
+	if salete > 40:
+		resultat_nuit.append(GameEvent.new(
+			"Saleté",
+			"À force de laisser le cheval en liberté il nous salis la charrette.",
+			[EventsDommages.salete], false))
+		salete -= 40
 	prochaine_phase()
 
 ## Prépare la partie.

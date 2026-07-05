@@ -3,9 +3,21 @@ var id: String
 var nom: String
 var objets_necessaires: Dictionary[Item, int]
 var outils_necessaires: Array[Outil]
+static var got_error := false
+
+func _init(
+		arg_id: String,
+		arg_nom: String,
+		items: Dictionary[Item, int],
+		outils: Array[Outil]
+		) -> void:
+	id = arg_id
+	nom = arg_nom
+	objets_necessaires = items
+	outils_necessaires = outils
 
 
-static func _exports(dommages: Array[Dommage]):
+static func exports(dommages: Array[Dommage]):
 	var exported_data := []
 	for dommage in dommages:
 		exported_data.append(_export(dommage))
@@ -26,16 +38,19 @@ static func _export_objets(dommage: Dommage) -> Dictionary[String, int]:
 		objets[outil.id] = 1
 	return objets
 
-static func _imports(datas) -> Array[Dommage]:
+static func imports(datas) -> Array[Dommage]:
+	got_error = false
 	if datas is not Array:
+		got_error = true
 		return []
-	var importes = []
+	var importes: Array[Dommage] = []
 	for data in datas:
 		var importe = _import(data)
 		if importe == null:
+			got_error = true
 			return []
 		importes.append(importe)
-	return []
+	return importes
 
 static func _import(data) -> Dommage:
 	if data is not Dictionary:
@@ -50,13 +65,11 @@ static func _import(data) -> Dommage:
 		return null
 	if objets is not Array:
 		return null
-	var dommage := Dommage.new()
-	dommage.id = id
-	dommage.nom = nom
+	var dommage := Dommage.new(id, nom, {}, [])
 	for id_objet in objets:
 		if id_objet is not String:
 			return null
-		var objet := Items.by_id(id_objet)
+		var objet: Item = Items.by_id(id_objet)
 		if objet == null:
 			return null
 		if objet is Outil:

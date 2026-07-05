@@ -28,6 +28,13 @@ func _init():
 	visite = false
 	connections = []
 
+func _ready():
+	if mesh == null:
+		var box := BoxMesh.new()
+		box.size = Vector3(10,10,10)
+		mesh = box
+	joueur_dessus(false)
+
 ## Appellé par le chariot pour faire changer la texture
 ## en fonction de si le joueur est dessus ou non.
 func joueur_dessus(toogle: bool):

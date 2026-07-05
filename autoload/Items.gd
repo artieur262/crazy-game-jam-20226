@@ -4,11 +4,12 @@ var bois: = Item.new("bois", "bois")
 var chanvre := Item.new("chanvre", "chanvre")
 
 var hache := Outil.new("hache", "hache")
+var eponge := Outil.new("eponge", "eponge")
 var seau := Outil.new("seau", "seau")
-var seau_eau := Outil.new("seau d'eau", "seau d'eau")
 var aiguilles := Outil.new("aiguilles", "aiguilles")
+var marteau := Outil.new("marteau", "marteau")
 
-var items: Array[Item] = [bois, chanvre, hache, seau, seau_eau, aiguilles]
+var items: Array[Item] = [bois, chanvre, hache, seau, aiguilles, marteau, eponge]
 
 func by_id(id: String) -> Item:
 	for item in items:
