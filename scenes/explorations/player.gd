@@ -12,6 +12,7 @@ var min_zoom = 1
 
 func _ready() -> void:
 	raycast.collision_mask |= Interactif.mask
+	mettre_a_jour_console()
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -41,7 +42,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 	move_and_slide()
 	if raycast.is_colliding():
-		step = 1
+		step = 0
 		var collider := raycast.get_collider() as Interactif
 		if Input.is_action_pressed("interact"):
 			avancement += delta
@@ -49,13 +50,14 @@ func _physics_process(delta: float) -> void:
 			$ProgressBar.visible = true
 			$ProgressBar.value = avancement/collider.temp*100
 			if avancement >= collider.temp:
-				print("fesd")
+				collected(collider.collect())
+				avancement = 0
 		else:
 			avancement = 0
 			$Label.visible = true
 			$ProgressBar.visible = false
-	elif step == 1:
-		step = 0
+	elif step == 0:
+		step = 1
 		avancement = 0
 		$Label.visible = false
 		$ProgressBar.visible = false
@@ -63,3 +65,31 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action("zoom"):
 		$Camera2D.zoom = Vector2.ONE * clamp($Camera2D.zoom.x + 0.3, min_zoom, max_zoom)
+		mettre_a_jour_console()
+	elif event.is_action("dezoom"):
+		$Camera2D.zoom = Vector2.ONE * clamp($Camera2D.zoom.x - 0.3, min_zoom, max_zoom)
+		mettre_a_jour_console()
+
+func mettre_a_jour_console():
+	var taille = get_viewport_rect().size/$Camera2D.zoom
+	var i = 1/$Camera2D.zoom.x
+	$Notifs.scale = Vector2(i,i)
+	$Notifs.position.x = -taille.x/2+1
+
+
+func collected(items: Dictionary[Item, int]):
+	var text := RichTextLabel.new()
+	text.text = "Obtenus:\n"
+	var timer := Timer.new()
+	timer.wait_time = 3
+	for item in items:
+		var quantite := items[item]
+		text.text += "qeeeee%s (%d)\n" % [item.nom,quantite]
+	text.text = text.text.left(-1)
+	text.add_child(timer)
+	text.fit_content = true
+	$Notifs.add_child(text)
+	timer.timeout.connect(text.queue_free)
+	timer.timeout.connect(timer.queue_free)
+	timer.start()
+	# TODO: ajouter à l'inventaire
