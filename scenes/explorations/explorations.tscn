@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dsxpy431hck4i" path="res://assets/exploration/RPG_Nature_Tileset_Autumn.png" id="6_lx5f7"]
 [ext_resource type="PackedScene" uid="uid://b0ion66uicmun" path="res://scenes/explorations/arbre.tscn" id="7_2gyim"]
 [ext_resource type="PackedScene" uid="uid://7xscu6x0lghw" path="res://scenes/explorations/pancarte.tscn" id="8_2gyim"]
+[ext_resource type="PackedScene" uid="uid://7me85tnhnsxm" path="res://scenes/explorations/chanvre.tscn" id="8_cy0um"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t4iff"]
 texture = ExtResource("2_1hbir")
@@ -3018,7 +3019,88 @@ scale = Vector2(0.99999994, 0.99999994)
 
 [node name="spawnable" type="Node2D" parent="." unique_id=30877308]
 
+[node name="chanvre" parent="spawnable" unique_id=983816658 instance=ExtResource("8_cy0um")]
+position = Vector2(156, 144)
+
+[node name="chanvre2" parent="spawnable" unique_id=1827662925 instance=ExtResource("8_cy0um")]
+position = Vector2(-731, 29)
+
+[node name="chanvre3" parent="spawnable" unique_id=409273234 instance=ExtResource("8_cy0um")]
+position = Vector2(567, 61)
+
+[node name="chanvre4" parent="spawnable" unique_id=142687901 instance=ExtResource("8_cy0um")]
+position = Vector2(184, -234)
+
+[node name="chanvre5" parent="spawnable" unique_id=2111837227 instance=ExtResource("8_cy0um")]
+position = Vector2(619, 459)
+
+[node name="chanvre6" parent="spawnable" unique_id=1055132756 instance=ExtResource("8_cy0um")]
+position = Vector2(-513, 361)
+
+[node name="chanvre7" parent="spawnable" unique_id=1696724835 instance=ExtResource("8_cy0um")]
+position = Vector2(746, -368)
+
+[node name="chanvre8" parent="spawnable" unique_id=1862300118 instance=ExtResource("8_cy0um")]
+position = Vector2(-84, 197)
+
+[node name="chanvre9" parent="spawnable" unique_id=953188853 instance=ExtResource("8_cy0um")]
+position = Vector2(-260, 335)
+
+[node name="chanvre10" parent="spawnable" unique_id=1094372713 instance=ExtResource("8_cy0um")]
+position = Vector2(413, 281)
+
 [node name="arbre" parent="spawnable" unique_id=1732968562 instance=ExtResource("7_2gyim")]
-position = Vector2(-218, 81)
+position = Vector2(-177, 112)
+
+[node name="arbre11" parent="spawnable" unique_id=1356889353 instance=ExtResource("7_2gyim")]
+position = Vector2(771, -132)
+
+[node name="arbre12" parent="spawnable" unique_id=305206099 instance=ExtResource("7_2gyim")]
+position = Vector2(-320, -490)
+
+[node name="arbre13" parent="spawnable" unique_id=1769974295 instance=ExtResource("7_2gyim")]
+position = Vector2(380, -438)
+
+[node name="arbre14" parent="spawnable" unique_id=574096888 instance=ExtResource("7_2gyim")]
+position = Vector2(-454, 529)
+
+[node name="arbre15" parent="spawnable" unique_id=589530976 instance=ExtResource("7_2gyim")]
+position = Vector2(-808, -76)
+
+[node name="arbre16" parent="spawnable" unique_id=1732998090 instance=ExtResource("7_2gyim")]
+position = Vector2(409, 491)
+
+[node name="arbre17" parent="spawnable" unique_id=1016467398 instance=ExtResource("7_2gyim")]
+position = Vector2(807, 401)
+
+[node name="arbre18" parent="spawnable" unique_id=1389712623 instance=ExtResource("7_2gyim")]
+position = Vector2(895, -318)
+
+[node name="arbre10" parent="spawnable" unique_id=641653359 instance=ExtResource("7_2gyim")]
+position = Vector2(157, 29)
+
+[node name="arbre2" parent="spawnable" unique_id=2024651575 instance=ExtResource("7_2gyim")]
+position = Vector2(634, -509)
+
+[node name="arbre3" parent="spawnable" unique_id=766944603 instance=ExtResource("7_2gyim")]
+position = Vector2(-715, 336)
+
+[node name="arbre4" parent="spawnable" unique_id=964988477 instance=ExtResource("7_2gyim")]
+position = Vector2(720, 161)
+
+[node name="arbre5" parent="spawnable" unique_id=120954956 instance=ExtResource("7_2gyim")]
+position = Vector2(-653, -414)
+
+[node name="arbre6" parent="spawnable" unique_id=1843794672 instance=ExtResource("7_2gyim")]
+position = Vector2(128, -452)
+
+[node name="arbre7" parent="spawnable" unique_id=118581474 instance=ExtResource("7_2gyim")]
+position = Vector2(461, -210)
+
+[node name="arbre8" parent="spawnable" unique_id=1668168150 instance=ExtResource("7_2gyim")]
+position = Vector2(101, 466)
+
+[node name="arbre9" parent="spawnable" unique_id=1197531116 instance=ExtResource("7_2gyim")]
+position = Vector2(-432, 140)
 
 [node name="pancarte" parent="." unique_id=840435748 instance=ExtResource("8_2gyim")]

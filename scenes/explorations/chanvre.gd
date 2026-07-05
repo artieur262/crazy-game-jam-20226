@@ -1,19 +1,11 @@
-extends Node2D
+extends Interactif
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	super._ready()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
-
-func random_placement():
-	for obj:Node2D in $spawnable.get_children():
-		pass
-
-func random_spaner(liste_parcouru:Variant, noeu:Node2D):
-	#var ran = randi_range(0)
 	pass
