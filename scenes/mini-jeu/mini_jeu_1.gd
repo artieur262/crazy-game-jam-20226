@@ -7,6 +7,10 @@ var restant := 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	pass
+	
+func start():
+	super.start()
 	randomiser(true)
 	randomiser(false)
 	changer()

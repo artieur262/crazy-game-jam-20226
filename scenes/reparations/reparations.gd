@@ -3,6 +3,7 @@ extends VBoxContainer
 var domages_initialises: Dictionary[String, RichTextLabel]
 
 func _ready():
+	$Window.visible=false
 	domages_initialises = {}
 	var cat = Dommage.new()
 	cat.nom="miaou !"
@@ -15,7 +16,7 @@ func ajouter_domages(dommage: Dommage):
 	if domages_initialises.has(dommage.id):
 		return
 	var noeud := RichTextLabel.new()
-	noeud.text += dommage.nom
+	noeud.text += dommage.nom+ "\n"
 	noeud.text += "Nécessite:\n"
 	noeud.bbcode_enabled = true
 	for objet in dommage.objets_necessaires:
@@ -48,6 +49,41 @@ func afficher_inventaire():
 	for objet in Jeu.inventaire:
 		noeud = RichTextLabel.new()
 		noeud.bbcode_enabled = true
-		noeud.text +="%d" % Jeu.quantite_dans_inventaire(objet)
+		noeud.text +="%d" % Jeu.inventaire.quantite(objet)
 		noeud.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		$Inventaires/HBoxContainer.add_child(noeud)
+
+
+func _on_button_button_down() -> void:
+	if verificateur_peut_reparer():
+		$"Window/mini-jeu-1".start()
+		$Window.visible=true
+
+
+func _on_window_close_requested() -> void:
+	$"Window/mini-jeu-1".stop()
+	$Window.visible=false
+
+func verificateur_peut_reparer()->bool:
+	for dommage in Jeu.dommages:
+		for item in dommage.objets_necessaires:
+			var quantite_requise = dommage.objets_necessaires[item]
+			if quantite_requise < Jeu.inventaire.quantite(item):
+				return false
+		for outil in dommage.outils_necessaires:
+			if Jeu.inventaire.quantite(outils_necessaires) ==0:
+				return false
+	return true
+
+
+func _on_minijeu_1_quitter(boole: Variant) -> void:
+	if boole:
+		fabriquer()
+	$"Window/mini-jeu-1".stop()
+	$Window.visible=false
+
+func fabriquer():
+	for dommage in Jeu.dommages:
+		for object in dommage.objets_necessaires:
+			Jeu.inventaire.supprime_item(object,dommage.objets_necessaires[object])
+			
