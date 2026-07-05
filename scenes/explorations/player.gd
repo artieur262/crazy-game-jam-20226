@@ -83,12 +83,14 @@ func collected(items: Dictionary[Item, int]):
 	var timer := Timer.new()
 	timer.wait_time = 3
 	for item in items:
+		print(item)
 		var quantite := items[item]
 		text.text += "%s (%d)\n" % [item.nom,quantite]
 		Jeu.inventaire.ajoute_item(item, quantite)
 	text.text = text.text.left(-1)
 	text.add_child(timer)
 	text.fit_content = true
+	print("gain")
 	$Notifs.add_child(text)
 	timer.timeout.connect(text.queue_free)
 	timer.timeout.connect(timer.queue_free)
