@@ -22,10 +22,14 @@ signal checkpoint_selectionne(Checkpoint)
 @export var arrive: Checkpoint
 
 ## [Camera2D] utilisée sur cette map.
-@onready var camera := $Camera2D
+var camera: Camera2D
 
 ## Flag déterminant si un drag and drop est en cours.
 var dragging := false
+
+func _ready() -> void:
+	if camera == null:
+		camera = $Camera2D
 
 ## Configure le jeu avec les [Checkpoint] de départ et
 ## d'arrivée définit sur cette map.
@@ -77,7 +81,9 @@ func _export_checkpoint() -> Array[Dictionary]:
 ## Importe les [Checkcoint]s et la [Carte].
 ## Peux mener à un import partiel ne pas utiliser si
 ## la fonctio retourne False.
-func _import(data: Dictionary[String, Variant]) -> bool:
+func import(data) -> bool:
+	if data is not Dictionary:
+		return false
 	if not _import_checkpoint(data.get("checkpoints")):
 		return false
 	return _import_carte(data.get("carte"))
@@ -111,9 +117,11 @@ func _import_checkpoint(data) -> bool:
 		var visite = checkpoint.get("visite", null)
 		var connections = checkpoint.get("connections", null)
 		# vérification des types
-		if id is not int:
+		if id is float:
+			id = int(id)
+		elif id is not int:
 			return false
-		if pos is Array:
+		if pos is not Array:
 			return false
 		pos = pos as Array
 		if pos.size() != 2:
@@ -125,18 +133,24 @@ func _import_checkpoint(data) -> bool:
 		elif pos_x is not int:
 			return false
 		if pos_y is float:
-			pos_y = int(pos_x)
+			pos_y = int(pos_y)
 		elif pos_y is not int:
 			return false
 		pos = Vector2i(pos_x, pos_y) as Vector2i
 		if visite is not bool:
 			return false
-		if connections is Array:
+		if connections is not Array:
 			return false
 		connections = connections as Array
-		for connection in connections:
-			if connection is not int:
+		var i := 0
+		var size = connections.size()
+		while i < size:
+			var connection = connections[i]
+			if connection is float:
+				connections[i] = int(connection)
+			elif connection is not int:
 				return false
+			i += 1
 		# Création du noeud.
 		var checkpointNoeud = Checkpoint.new()
 		checkpointNoeud.id = id
@@ -146,6 +160,9 @@ func _import_checkpoint(data) -> bool:
 		# (nécessite que tout les checkpoint ai été importés)
 		checkpoints_connections[id] = connections
 		checkpoints_dict[id] = checkpointNoeud
+		checkpoints.append(checkpointNoeud)
+		add_child(checkpointNoeud)
+		checkpointNoeud.z_index += 5
 	# connecte les checkpoints
 	for id in checkpoints_connections:
 		var checkpoint := checkpoints_dict[id]
@@ -155,8 +172,6 @@ func _import_checkpoint(data) -> bool:
 			checkpoint.connecte_checkpoint(
 				checkpoints_dict[dest_checkpoint_id]
 			)
-	Generateur.dessiner_routes(
-		self, Jeu.checkpoint_depart, [])
 	return true
 
 ## Révèles la carte selon les données fournies.
@@ -169,6 +184,14 @@ func _import_carte(carte) -> bool:
 		return false
 	var checkpoint_depart = carte.get("depart")
 	var checkpoint_arrive = carte.get("arrive")
+	if checkpoint_depart is float:
+		checkpoint_depart = int(checkpoint_depart)
+	elif checkpoint_depart is not int:
+		return false
+	if checkpoint_arrive is float:
+		checkpoint_arrive = int(checkpoint_arrive)
+	elif checkpoint_arrive is not int:
+		return false
 	var found := 0
 	for checkpoint in checkpoints:
 		if checkpoint.id == checkpoint_depart:
