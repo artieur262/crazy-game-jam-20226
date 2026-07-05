@@ -1,6 +1,8 @@
 extends VSplitContainer
 
+## Carte de la partie.
 var carte: Carte
+## Flag maintenant de l'état du joueur (se déplaceant sur la carte ou pas).
 var en_deplacement := false
 
 
