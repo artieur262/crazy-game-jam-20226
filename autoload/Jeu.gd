@@ -27,8 +27,6 @@ var inventaire: Inventaire
 func _init():
 	inventaire = Inventaire.new()
 
-func _init():
-	inventaire = Inventaire.new()
 
 ## Sauvegarde la partie.
 func sauvegarder():
