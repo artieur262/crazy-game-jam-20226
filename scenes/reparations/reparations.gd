@@ -66,8 +66,13 @@ func _on_window_close_requested() -> void:
 
 func verificateur_peut_reparer()->bool:
 	for dommage in Jeu.dommages:
-		for object in dommage.objets_necessaires:
-			pass
+		for item in dommage.objets_necessaires:
+			var quantite_requise = dommage.objets_necessaires[item]
+			if quantite_requise < Jeu.inventaire.quantite(item):
+				return false
+		for outil in dommage.outils_necessaires:
+			if Jeu.inventaire.quantite(outils_necessaires) ==0:
+				return false
 	return true
 
 
