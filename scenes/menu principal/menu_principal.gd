@@ -15,9 +15,9 @@ func lister_sauvegardes() -> Array:
 ## Liste les sauvagerdes.
 func lister_sauvegardes() -> Array:
 	var noms := []
-	for nom in DirAccess.get_files_at("res://saves"):
+	for nom in DirAccess.get_files_at("user://saves"):
 		if nom.ends_with(".json"):
-			noms.append(nom)
+			noms.append("user://saves/%s" % nom)
 	return noms
 
 # Called when the node enters the scene tree for the first time.
