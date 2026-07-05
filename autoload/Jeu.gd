@@ -75,6 +75,7 @@ func nouvelle_partie():
 	jour = 0
 	salete = 0
 
+
 ## Sauvegarde la partie.
 func sauvegarder():
 	var donnees := {

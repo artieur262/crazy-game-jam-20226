@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dua7jao5uduku" path="res://scenes/reparations/reparations.gd" id="1_trvl0"]
 [ext_resource type="Texture2D" uid="uid://dx00gbky71qn2" path="res://assets/carte/checkpoint.png" id="1_vso2u"]
+[ext_resource type="PackedScene" uid="uid://dkdvl2dx8ln6j" path="res://scenes/mini-jeu/mini_jeu_1.tscn" id="3_40uvp"]
 
 [node name="Reparations" type="VBoxContainer" unique_id=746424102]
 anchors_preset = 15
@@ -32,12 +33,51 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Inventaires" type="Control" parent="." unique_id=594724779]
+[node name="I" type="ScrollContainer" parent="." unique_id=405335551]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Inventaires" unique_id=1127891514]
-layout_mode = 0
-offset_right = 1147.0
-offset_bottom = 210.0
+[node name="Inventaire" type="GridContainer" parent="I" unique_id=1800267098]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+columns = 10
+
+[node name="Window" type="Window" parent="." unique_id=1581355035]
+oversampling_override = 1.0
+mode = 1
+initial_position = 1
+size = Vector2i(500, 100)
+
+[node name="mini-jeu-1" parent="Window" unique_id=380734567 instance=ExtResource("3_40uvp")]
+
+[node name="Timer" type="Timer" parent="." unique_id=582570492]
+
+[node name="Controles" type="HBoxContainer" parent="." unique_id=1461657226]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Controles" unique_id=1054593827]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cliquez sur une des options ci-dessous pour la réparer."
+
+[node name="Button" type="Button" parent="Controles" unique_id=288978022]
+layout_mode = 2
+text = "retour au chariot"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=477166946]
+oversampling_override = 1.0
+title = "Êtes-vous sûr de vouloir retourner au chariot?"
+initial_position = 2
+size = Vector2i(400, 80)
+cancel_button_text = "Annuler"
+
+[connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]
+[connection signal="quitter" from="Window/mini-jeu-1" to="." method="_on_minijeu_1_quitter"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Controles/Button" to="." method="_on_button_pressed"]
+[connection signal="canceled" from="ConfirmationDialog" to="ConfirmationDialog" method="hide"]
+[connection signal="close_requested" from="ConfirmationDialog" to="ConfirmationDialog" method="hide"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
