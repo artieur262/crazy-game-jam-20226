@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bxs4qxqh1j5a4" path="res://assets/exploration/tf_jungle_tileset.png" id="4_8yrgw"]
 [ext_resource type="Texture2D" uid="uid://dbus1v0hdu6ih" path="res://assets/exploration/tf_B_ashlands_3.png" id="5_lx5f7"]
 [ext_resource type="Texture2D" uid="uid://dsxpy431hck4i" path="res://assets/exploration/RPG_Nature_Tileset_Autumn.png" id="6_lx5f7"]
+[ext_resource type="PackedScene" uid="uid://b0ion66uicmun" path="res://scenes/explorations/arbre.tscn" id="7_2gyim"]
 [ext_resource type="PackedScene" uid="uid://7xscu6x0lghw" path="res://scenes/explorations/pancarte.tscn" id="8_2gyim"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t4iff"]
@@ -3016,5 +3017,8 @@ position = Vector2(512.8572, 71.42859)
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="spawnable" type="Node2D" parent="." unique_id=30877308]
+
+[node name="arbre" parent="spawnable" unique_id=1732968562 instance=ExtResource("7_2gyim")]
+position = Vector2(-218, 81)
 
 [node name="pancarte" parent="." unique_id=840435748 instance=ExtResource("8_2gyim")]

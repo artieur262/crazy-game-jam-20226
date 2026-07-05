@@ -1,6 +1,5 @@
 extends StaticBody2D
 
-@onready var area_2d: Area2D = $Area2D
 @onready var label: Label = $Label
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var pancarte: StaticBody2D = $"."
@@ -23,16 +22,12 @@ func _process(delta: float) -> void:
 		Jeu.retour_chariot()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body == pancarte:
-		pass
-	else :
+	if body != pancarte:
 		label.visible = true
 		is_inside = true
 	
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body == pancarte:
-		pass
-	else :
+	if body != pancarte:
 		label.visible = false
 		is_inside = false
