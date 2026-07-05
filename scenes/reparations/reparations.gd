@@ -49,29 +49,36 @@ func afficher_inventaire():
 	for objet in Jeu.inventaire:
 		noeud = RichTextLabel.new()
 		noeud.bbcode_enabled = true
-		noeud.text +="%d" % Jeu.quantite_dans_inventaire(objet)
+		noeud.text +="%d" % Jeu.inventaire.quantite(objet)
 		noeud.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		$Inventaires/HBoxContainer.add_child(noeud)
 
 
 func _on_button_button_down() -> void:
-	$"Window/mini-jeu-1".start()
-	$Window.visible=true
+	if verificateur_peut_reparer():
+		$"Window/mini-jeu-1".start()
+		$Window.visible=true
 
 
 func _on_window_close_requested() -> void:
 	$"Window/mini-jeu-1".stop()
 	$Window.visible=false
 
+func verificateur_peut_reparer()->bool:
+	for dommage in Jeu.dommages:
+		for object in dommage.objets_necessaires:
+			pass
+	return true
+
 
 func _on_minijeu_1_quitter(boole: Variant) -> void:
 	if boole:
-		fabliquer() 
+		fabriquer()
 	$"Window/mini-jeu-1".stop()
 	$Window.visible=false
 
 func fabriquer():
 	for dommage in Jeu.dommages:
-		for object in dommage:
-			Jeu.inventaire
+		for object in dommage.objets_necessaires:
+			Jeu.inventaire.supprime_item(object,dommage.objets_necessaires[object])
 			
