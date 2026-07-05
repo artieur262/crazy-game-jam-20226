@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dtcse10aej501"]
 
 [ext_resource type="Script" uid="uid://bh5h2ikc1y5op" path="res://scenes/explorations/player.gd" id="1_c51md"]
-[ext_resource type="Texture2D" path="res://assets/exploration/S5_body_N.png" id="3_fkq1w"]
+[ext_resource type="Texture2D" uid="uid://cbaq2aho71sxt" path="res://assets/exploration/S5_body_N.png" id="3_fkq1w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c51md"]
 atlas = ExtResource("3_fkq1w")
@@ -126,18 +126,53 @@ animations = [{
 radius = 7.0
 height = 28.0
 
-[node name="player" type="CharacterBody2D" unique_id=604847441]
+[node name="player" type="CharacterBody2D" unique_id=604847441 node_paths=PackedStringArray("raycast")]
 script = ExtResource("1_c51md")
+raycast = NodePath("RayCast2D")
+
+[node name="Label" type="Label" parent="." unique_id=1725878582]
+z_index = 20
+offset_left = -4.5
+offset_top = -40.0
+offset_right = 4.5
+offset_bottom = -17.0
+text = "E"
+
+[node name="Panel" type="Panel" parent="Label" unique_id=1435245553]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=584196937]
 z_index = 10
 position = Vector2(0, -2)
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_arv63")
-animation = &"walk_up"
+animation = &"walk_down"
 autoplay = "idle"
-frame = 2
-frame_progress = 0.92012185
+frame_progress = 0.55994064
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1221298]
 shape = SubResource("CapsuleShape2D_asygh")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=905282989]
+zoom = Vector2(2, 2)
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=80450317]
+target_position = Vector2(0, -30)
+collision_mask = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1247500672]
+offset_left = -25.0
+offset_top = 20.0
+offset_right = 75.0
+offset_bottom = 47.0
+scale = Vector2(0.5, 0.5)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=280785800]
+offset_right = 1.0
+text = "fsdsdfs"
+scroll_active = false
