@@ -1,0 +1,52 @@
+extends CenterContainer
+
+var sauvegardes: Array = []
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	sauvegardes = Jeu.lister_sauvegardes()
+	if sauvegardes.size() == 0:
+		$HBoxContainer/Charger.disabled = true
+
+
+func _on_jouer_pressed() -> void:
+	$NomSauvagarde/VBoxContainer/Nom.text = ""
+	$NomSauvagarde.show()
+
+func _on_valider_nom_pressed() -> void:
+	var nom = $NomSauvagarde/VBoxContainer/Nom.text
+	if nom == "":
+		return
+	Jeu.nom = nom
+	var carte_scene := preload("res://scenes/carte/Carte.tscn")
+	var chariot_scene := preload("res://scenes/chariot/chariot.tscn")
+	var chariot := chariot_scene.instantiate()
+	var carte: Carte = carte_scene.instantiate()
+	carte.config()
+	Generateur.genere_routes(carte)
+	chariot.init(carte)
+	Jeu.position_joueur = Jeu.checkpoint_depart.position
+	carte.reset_brouillard()
+	Jeu.position_joueur = Jeu.checkpoint_depart.position
+	Jeu.phase_actuelle = Jeu.PHASES.PREPARTIE
+	get_tree().change_scene_to_node(chariot)
+
+func _on_charger_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_paramètres_pressed() -> void:
+	pass # Replace with function body.
+
+
+
+func _on_crédits_pressed() -> void:
+	pass # Replace with function body.
+
+
+
+func _on_quiter_pressed() -> void:
+	$ConfirmationQuiter.visible = true
+
+func _on_confirmation_quiter_confirmed() -> void:
+	get_tree().quit(0)
