@@ -57,3 +57,31 @@ func supprime_item(item: Item, quantite_a_suppr := 1):
 ## Retourne la quantité d'un [Item] donnés quand l'inventaire.
 func quantite(item: Item) -> int:
 	return contenu.get(item, 0)
+
+## Vide l'[Inventaire].
+func reset():
+	contenu.clear()
+	
+
+## Exporte le contenu de l'[Inventaire] pour le sauvegarder.
+func export() -> Dictionary[String, int]:
+	var exported_data := {}
+	for item in contenu:
+		exported_data[item.id] = contenu[item]
+	return exported_data
+
+## Exporte le contenu de l'[Inventaire] pour le sauvegarder.
+## Retourne true si les données ont été importé dans le cas contraire
+## l'inventaire devrais être [member reset] pour éviter un import
+## partiel.
+func import(data) -> bool:
+	if data is not Dictionary:
+		return false
+	for item_id in data:
+		if item_id is not String:
+			return false
+		if contenu[item_id] is not int:
+			return false
+		var item := Items.by_id(item_id)
+		contenu[item] = contenu[item]
+	return true

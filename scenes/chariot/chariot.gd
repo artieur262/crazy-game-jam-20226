@@ -5,13 +5,11 @@ var en_deplacement := false
 
 
 ## Initialise la scene avec la [Carte] fournie.
-func init(arg_carte: Carte):
-	carte = arg_carte
+func _ready() -> void:
+	if carte == null:
+		carte = Jeu.carte
 	carte.checkpoint_selectionne.connect(_on_clic_checkpoint)
 	$MapSubViewportContainer/MapSubViewport.add_child(carte)
-
-
-func _enter_tree() -> void:
 	# Corrige la position du Node2D (qui bouge au lancement pour une raison inconue)
 	carte.position = Vector2.ZERO
 	get_window().size_changed.connect(corriger_map)
@@ -20,6 +18,7 @@ func _enter_tree() -> void:
 	var bouton: Button = $ConfirmationQuiter.add_button("Sauvegarder")
 	bouton.pressed.connect(self.sauvegarder)
 	carte.checkpointViaPos(Jeu.position_joueur).joueur_dessus(true)
+	Jeu.preparer_jeu()
 
 ## Corrige la [Carte] après une transformation du viewport
 ## (ou de la fenêtre) pour remettre la [Carte] en place.
@@ -61,6 +60,10 @@ func _on_clic_checkpoint(checkpoint: Checkpoint):
 			return
 		var checkpoint_joueur = carte.checkpointViaPos(
 			Jeu.position_joueur)
+		if checkpoint_joueur == checkpoint:
+			afficher_info(
+				"Vous ne pouvez pas vous déplacer là où vous êts déjà.")
+			return
 		if est_visitable(checkpoint_joueur, checkpoint, [], 0):
 			return
 		afficher_info(
@@ -89,11 +92,12 @@ func est_visitable(
 	return false
 
 ## Déplace le joueur vers le checkpoint indiqué.
-func aller_sur(checkpoint: Checkpoint):	
+func aller_sur(checkpoint: Checkpoint):
 	carte.checkpointViaPos(Jeu.position_joueur).joueur_dessus(false)
 	Jeu.position_joueur = checkpoint.position
 	checkpoint.joueur_dessus(true)
 	checkpoint.visite = true
+	Jeu.camp_pret = false
 	Jeu.prochaine_phase()
 
 ## Appelé quand le bouton "Choisir une direction" est appuyé ou relaché.
@@ -120,8 +124,13 @@ func _on_explorer_pressed() -> void:
 
 ## Appellé quand le bouton "préparer le camp" est appuyé.
 func _on_preparer_un_camp_pressed() -> void:
-	if not passer_en_phase_principale(true):
-		return
+	if passer_en_phase_principale(true):
+		var result := Jeu.preparer_camp()
+		if result == false:
+			afficher_info("Le camp est déjà prêt.")
+			Jeu.retour_phase()
+			return
+		Jeu.prochaine_phase()
 
 # ----------------- Quitter -----------------
 

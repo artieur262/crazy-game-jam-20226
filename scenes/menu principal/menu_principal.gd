@@ -2,6 +2,14 @@ extends CenterContainer
 
 var sauvegardes: Array = []
 
+## Liste les sauvagerdes.
+func lister_sauvegardes() -> Array:
+	var noms := []
+	for nom in DirAccess.get_files_at("res://saves"):
+		if nom.ends_with(".json"):
+			noms.append(nom)
+	return noms
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sauvegardes = Jeu.lister_sauvegardes()
@@ -19,17 +27,13 @@ func _on_valider_nom_pressed() -> void:
 		return
 	Jeu.nom = nom
 	var carte_scene := preload("res://scenes/carte/Carte.tscn")
-	var chariot_scene := preload("res://scenes/chariot/chariot.tscn")
-	var chariot := chariot_scene.instantiate()
-	var carte: Carte = carte_scene.instantiate()
-	carte.config()
-	Generateur.genere_routes(carte)
-	chariot.init(carte)
+	Jeu.carte = carte_scene.instantiate()
+	Jeu.carte.config()
+	Generateur.genere_routes(Jeu.carte)
 	Jeu.position_joueur = Jeu.checkpoint_depart.position
-	carte.reset_brouillard()
+	Jeu.carte.reset_brouillard()
 	Jeu.position_joueur = Jeu.checkpoint_depart.position
-	Jeu.phase_actuelle = Jeu.PHASES.PREPARTIE
-	get_tree().change_scene_to_node(chariot)
+	get_tree().change_scene_to_file("res://scenes/chariot/chariot.tscn")
 
 func _on_charger_pressed() -> void:
 	pass # Replace with function body.

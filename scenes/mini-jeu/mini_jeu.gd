@@ -5,17 +5,23 @@ var sens := 1
 var lettre_droite := 0
 var lettre_gauche := 0
 var liste_lettre := ["A","D","Q","D","Z","S"]
+var encour:bool=false
 
-signal quitter(bool) 
+
+signal quitter(boole:bool) 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-
+func start():
+	encour=true
+func stop():
+	encour=false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	mouve_curseur()
+	if encour:
+		mouve_curseur()
 	
 
 func ajouter_texte_droite(texte:String) -> void:

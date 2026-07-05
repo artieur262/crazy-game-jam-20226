@@ -113,6 +113,6 @@ dialog_text = "Quiter sans sauvegarder?"
 [connection signal="toggled" from="EcranBas/Interface/bouttons/Boutons/Direction" to="." method="_on_direction_toggled"]
 [connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/Reparer" to="." method="_on_reparer_pressed"]
 [connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/Explorer" to="." method="_on_explorer_pressed"]
-[connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/PreparerUnCamp" to="." method="_on_préparer_un_camp_pressed"]
+[connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/PreparerUnCamp" to="." method="_on_preparer_un_camp_pressed"]
 [connection signal="pressed" from="EcranBas/Interface/bouttons/Boutons/Quiter" to="." method="_on_quiter_pressed"]
 [connection signal="confirmed" from="ConfirmationQuiter" to="." method="_on_confirmation_quiter_confirmed"]
