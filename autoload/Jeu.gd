@@ -21,30 +21,39 @@ var carte: Carte
 var nom: String
 var dommages: Array[Dommage]
 var phase_actuelle: PHASES
-var inventaire :Array[Item]
+var inventaire: Inventaire
 
 
-func quantite_dans_inventaire(objet:Item) -> int:
-	return 0
+func _init():
+	inventaire = Inventaire.new()
 
-
-
+## Sauvegarde la partie.
 func sauvegarder():
 	pass
 
+## Liste les sauvagerdes.
 func lister_sauvegardes() -> Array:
 	return []
 
+## Ramène le joueur à la scene du chariot.
 func retour_chariot():
 	pass
 
+## Passe à la prochaine phase de jeu et la retourne..
 func prochaine_phase() -> PHASES:
 	match phase_actuelle:
-		PHASES.PREPARTIE: phase_actuelle = PHASES.PREMIERE_SELECTION
-		PHASES.RESUME: phase_actuelle = PHASES.PREMIERE_SELECTION
-		PHASES.PREMIERE_SELECTION: phase_actuelle = PHASES.PHASE_UN
-		PHASES.PHASE_UN: phase_actuelle = PHASES.SECONDE_SELECTION
-		PHASES.SECONDE_SELECTION: phase_actuelle = PHASES.PHASE_DEUX
-		PHASES.PHASE_DEUX: phase_actuelle = PHASES.NUIT
-		_: phase_actuelle = PHASES.RESUME
+		PHASES.PREPARTIE:
+			phase_actuelle = PHASES.PREMIERE_SELECTION
+		PHASES.RESUME:
+			phase_actuelle = PHASES.PREMIERE_SELECTION
+		PHASES.PREMIERE_SELECTION:
+			phase_actuelle = PHASES.PHASE_UN
+		PHASES.PHASE_UN:
+			phase_actuelle = PHASES.SECONDE_SELECTION
+		PHASES.SECONDE_SELECTION:
+			phase_actuelle = PHASES.PHASE_DEUX
+		PHASES.PHASE_DEUX:
+			phase_actuelle = PHASES.NUIT
+		_:
+			phase_actuelle = PHASES.RESUME
 	return phase_actuelle
