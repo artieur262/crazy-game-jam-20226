@@ -8,13 +8,17 @@ var en_deplacement := false
 func _ready() -> void:
 	if carte == null:
 		carte = Jeu.carte
-	carte.checkpoint_selectionne.connect(_on_clic_checkpoint)
 	$MapSubViewportContainer/MapSubViewport.add_child(carte)
+	call_deferred("finish_init")
+
+## Finir l'initialisation après que la carte ai été configuré.
+func finish_init():
+	carte.checkpoint_selectionne.connect(_on_clic_checkpoint)
 	# Corrige la position du Node2D (qui bouge au lancement pour une raison inconue)
 	carte.position = Vector2.ZERO
 	get_window().size_changed.connect(corriger_map)
 	drag_ended.connect(corriger_map)
-	call_deferred("corriger_map")
+	corriger_map()
 	var bouton: Button = $ConfirmationQuiter.add_button("Sauvegarder")
 	bouton.pressed.connect(self.sauvegarder)
 	carte.checkpointViaPos(Jeu.position_joueur).joueur_dessus(true)
@@ -53,11 +57,11 @@ func afficher_info(text: String):
 func _on_clic_checkpoint(checkpoint: Checkpoint):
 	if en_deplacement:
 		if not passer_en_phase_principale(true):
-			$EcranBas/Interface/bouttons/Boutons/Direction.\
-				button_pressed = true
-			$EcranBas/Interface/bouttons/Boutons/Direction.\
-				button_pressed = false
 			return
+		$EcranBas/Interface/bouttons/Boutons/Direction.\
+			button_pressed = true
+		$EcranBas/Interface/bouttons/Boutons/Direction.\
+			button_pressed = false
 		var checkpoint_joueur = carte.checkpointViaPos(
 			Jeu.position_joueur)
 		if checkpoint_joueur == checkpoint:

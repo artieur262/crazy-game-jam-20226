@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="crazy-game-jam"
-run/main_scene="uid://cyoq04t4gmnnp"
+run/main_scene="uid://d02oqtywmjt11"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Jeu="*uid://bacclbfjcg082"
 Items="*uid://b4b7q6fd4sdt4"
+EventsDommages="*uid://dynrxy5teptmh"
 
 [display]
 

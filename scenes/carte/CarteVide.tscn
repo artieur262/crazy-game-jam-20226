@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bhscfpryw50xf"]
+
+[ext_resource type="Texture2D" uid="uid://cbqfji7bwa8el" path="res://assets/carte/brouillard.png" id="1_tqdve"]
+[ext_resource type="Script" uid="uid://uu8mtcincgvr" path="res://scenes/carte/Carte.gd" id="2_fgymc"]
+[ext_resource type="Script" uid="uid://dfq6h5ljq5fyc" path="res://scenes/carte/Camera.gd" id="3_2omth"]
+[ext_resource type="Texture2D" uid="uid://bkgtqncppiem8" path="res://assets/carte/map.png" id="4_2yxpb"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_701t1"]
+texture = ExtResource("1_tqdve")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_csfff"]
+sources/0 = SubResource("TileSetAtlasSource_701t1")
+
+[node name="TileMapLayer" type="TileMapLayer" unique_id=1149082585 node_paths=PackedStringArray("depart", "arrive")]
+tile_set = SubResource("TileSet_csfff")
+navigation_enabled = false
+script = ExtResource("2_fgymc")
+distance_max = 100
+taille_carte = Vector2i(60, 17)
+depart = NodePath("")
+arrive = NodePath("")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1584633497]
+script = ExtResource("3_2omth")
+
+[node name="Fond" type="Sprite2D" parent="." unique_id=734871639]
+z_index = -5
+position = Vector2(480, 136)
+texture = ExtResource("4_2yxpb")
