@@ -8,12 +8,14 @@ var restant := 10
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
+	start()
 	
 func start():
 	super.start()
 	randomiser(true)
 	randomiser(false)
 	changer()
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

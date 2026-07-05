@@ -4,16 +4,8 @@
 [ext_resource type="Script" uid="uid://djwn8nyhb3y8x" path="res://scenes/mini-jeu/mini_jeu_1.gd" id="2_recge"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7fir2"]
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uj0ia"]
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
 
 [node name="mini-jeu-1" unique_id=380734567 instance=ExtResource("1_m71dt")]
 script = ExtResource("2_recge")
@@ -24,12 +16,12 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -40.0
-offset_bottom = 60.0
+offset_bottom = 84.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7fir2")
 
 [node name="active_r" type="Panel" parent="bordure/interieur-ext/interieur-int" parent_id_path=PackedInt32Array(440662895) index="1" unique_id=1909948187]
 layout_mode = 1
 offset_right = 40.0
-offset_bottom = 60.0
+offset_bottom = 84.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_uj0ia")
