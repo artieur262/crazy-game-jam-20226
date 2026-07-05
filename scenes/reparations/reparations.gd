@@ -20,22 +20,24 @@ func ajouter_domages(dommage: Dommage):
 	noeud.bbcode_enabled = true
 	for objet in dommage.objets_necessaires:
 		var couleur : String ="%s"
-		if Jeu.quantite_dans_inventaire(objet)<dommage.objets_necessaires[objet]:
+		if Jeu.inventaire.quantite(objet)<dommage.objets_necessaires[objet]:
 			couleur="[color=red]%s[/color]\n" 
 		noeud.text +=couleur % ("-%s (%d/%d)\n" % [
 			objet.nom, 
-			Jeu.quantite_dans_inventaire(objet),
+			Jeu.inventaire.quantite(objet),
 			dommage.objets_necessaires[objet]])
 	noeud.text = noeud.text.left(-1)
 	domages_initialises[dommage.id] = noeud
-	noeud.size_flags_vertical=Control.SIZE_EXPAND_FILL
-	$"Main/Réparations".add_child(noeud)
+	noeud.size_flags_horizontal=Control.SIZE_FILL
+	noeud.scroll_active=false
+	noeud.fit_content=true
+	$"Main/Réparations/B".add_child(noeud)
 
 func supprimer_dommages(dommage: Dommage):
 	if not domages_initialises.has(dommage.id):
 		return
 	var noeud := domages_initialises[dommage.id]
-	$"Main/Réparations".remove_child(noeud)
+	$"Main/Réparations/B".remove_child(noeud)
 
 func ajouter_item(item: Item):
 	pass
