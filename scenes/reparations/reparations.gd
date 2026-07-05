@@ -6,27 +6,7 @@ var dommage_selectionne: Dommage
 func _ready():
 	$Window.visible=false
 	domages_initialises = {}
-	var roue := false
-	var habitacle := false
-	var rideau := false
-	for dommage in Jeu.dommages:
-		if dommage == EventsDommages.roue_perdue:
-			roue = true
-		elif dommage == EventsDommages.habitacle:
-			habitacle = true
-		elif dommage == EventsDommages.rideau_habimes:
-			rideau = true
-		ajouter_domages(dommage)
-	var res: Texture2D
-	if rideau:
-		res = preload("res://assets/reparations/chariot-pb-rideaux.png")
-	elif habitacle:
-		res = preload("res://assets/reparations/chariot-pb-habitacle.png")
-	elif roue:
-		res = preload("res://assets/reparations/chariot-pb-roue.png")
-	else:
-		res = preload("res://assets/reparations/chariot.png")
-	$Main/Chariot.texture = res
+	selectionner_image()
 	afficher_inventaire()
 
 func selectionner_image():
@@ -34,6 +14,8 @@ func selectionner_image():
 	var habitacle := false
 	var rideau := false
 	for dommage in Jeu.dommages:
+		supprimer_dommages(dommage)
+		ajouter_domages(dommage)
 		if dommage == EventsDommages.roue_perdue:
 			roue = true
 		elif dommage == EventsDommages.habitacle:
@@ -137,6 +119,7 @@ func _on_minijeu_1_quitter(reussi: Variant) -> void:
 		fabriquer()
 	$"Window/mini-jeu-1".stop()
 	$Window.hide()
+	$"Window/mini-jeu-1".restant = 10
 	dommage_selectionne = null
 
 

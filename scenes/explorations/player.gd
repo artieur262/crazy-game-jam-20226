@@ -11,7 +11,6 @@ var max_zoom = 10
 var min_zoom = 1
 
 func _ready() -> void:
-	Jeu.nouvelle_partie()
 	raycast.collision_mask |= Interactif.mask
 	mettre_a_jour_console()
 

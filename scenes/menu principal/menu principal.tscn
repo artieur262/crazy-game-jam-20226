@@ -29,6 +29,11 @@ visible = false
 layout_mode = 2
 text = "Paramètres"
 
+[node name="Presentation" type="Button" parent="HBoxContainer" unique_id=1680362026]
+layout_mode = 2
+text = "Presentation
+"
+
 [node name="Credits" type="Button" parent="HBoxContainer" unique_id=718367691]
 layout_mode = 2
 text = "Crédits"
@@ -133,6 +138,29 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Ok"
 
+[node name="presentation" type="Window" parent="." unique_id=1846160230]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(750, 400)
+visible = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="presentation" unique_id=1448272448]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -282.5
+offset_top = -147.5
+offset_right = 282.5
+offset_bottom = 147.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Traversez une forêt dans votre charrette sans vous faire dépouiller ou briser votre charette.
+
+Pour la protéger la nuit construisez un campement.
+Allez explorer et chercher des ressources pour la réparer si il le faut."
+
 [node name="Credits" type="Window" parent="." unique_id=277488913]
 oversampling_override = 1.0
 initial_position = 2
@@ -144,6 +172,7 @@ visible = false
 [connection signal="pressed" from="HBoxContainer/Jouer" to="." method="_on_jouer_pressed"]
 [connection signal="pressed" from="HBoxContainer/Charger" to="." method="_on_charger_pressed"]
 [connection signal="pressed" from="HBoxContainer/Paramètres" to="." method="_on_paramètres_pressed"]
+[connection signal="pressed" from="HBoxContainer/Presentation" to="." method="_on_presentation_pressed"]
 [connection signal="pressed" from="HBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="HBoxContainer/Quiter" to="." method="_on_quiter_pressed"]
 [connection signal="confirmed" from="ConfirmationQuiter" to="." method="_on_confirmation_quiter_confirmed"]
@@ -161,5 +190,6 @@ visible = false
 [connection signal="close_requested" from="Popup" to="Popup" method="hide"]
 [connection signal="window_input" from="Popup" to="." method="_input"]
 [connection signal="pressed" from="Popup/Button" to="Popup" method="hide"]
+[connection signal="close_requested" from="presentation" to="presentation" method="hide"]
 [connection signal="close_requested" from="Credits" to="." method="_on_credits_close_requested"]
 [connection signal="window_input" from="Credits" to="." method="_input"]

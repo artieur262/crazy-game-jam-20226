@@ -173,5 +173,10 @@ collision_mask = 0
 
 [node name="Notifs" type="VBoxContainer" parent="." unique_id=481742189]
 offset_left = -230.0
-offset_right = -155.0
-offset_bottom = 40.0
+offset_right = -30.0
+offset_bottom = 322.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Notifs" unique_id=1524294614]
+layout_mode = 2
+text = "Cherchez les ressources qui vous interressent récupérez les et revenez au chariot avec le panneau."
+fit_content = true

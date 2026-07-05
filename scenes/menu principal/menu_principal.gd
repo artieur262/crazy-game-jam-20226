@@ -24,6 +24,7 @@ func hide_all():
 	$NomSauvagarde.hide()
 	$Sauvegardes.hide()
 	$Credits.hide()
+	$presentation.hide()
 
 
 func _on_jouer_pressed() -> void:
@@ -226,3 +227,8 @@ func _input(event: InputEvent) -> void:
 		if event.keycode == KEY_ESCAPE:
 			hide_all()
 			visible = true
+
+
+func _on_presentation_pressed() -> void:
+	hide_all()
+	$presentation.show()

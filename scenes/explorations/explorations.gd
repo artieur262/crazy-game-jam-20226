@@ -17,4 +17,3 @@ func random_placement():
 func random_spaner(liste_parcouru:Variant, noeu:Node2D):
 	#var ran = randi_range(0)
 	pass
-
