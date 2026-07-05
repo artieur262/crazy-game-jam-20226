@@ -24,10 +24,12 @@ layout_mode = 2
 text = "Charger une partie"
 
 [node name="Paramètres" type="Button" parent="HBoxContainer" unique_id=524338690]
+visible = false
 layout_mode = 2
 text = "Paramètres"
 
 [node name="Crédits" type="Button" parent="HBoxContainer" unique_id=718367691]
+visible = false
 layout_mode = 2
 text = "Crédits"
 
@@ -40,6 +42,13 @@ oversampling_override = 1.0
 title = "Voulez-vous vraiment quiter?"
 initial_position = 2
 size = Vector2i(300, 100)
+
+[node name="ConfirmationSupprimer" type="ConfirmationDialog" parent="." unique_id=1794331595]
+oversampling_override = 1.0
+title = "Voulez-vous vraiment supprimer cette sauvegarde??"
+initial_position = 2
+size = Vector2i(300, 100)
+cancel_button_text = "Annuler"
 
 [node name="NomSauvagarde" type="Window" parent="." unique_id=1714022387]
 oversampling_override = 1.0
@@ -75,12 +84,56 @@ layout_mode = 2
 text = "Valider
 "
 
+[node name="Sauvegardes" type="Window" parent="." unique_id=1946448164]
+oversampling_override = 1.0
+initial_position = 2
+visible = false
+
+[node name="Bouttons" type="HBoxContainer" parent="Sauvegardes" unique_id=873869259]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Parties" type="VBoxContainer" parent="Sauvegardes/Bouttons" unique_id=1184207041]
+layout_mode = 2
+
+[node name="Supprimer" type="VBoxContainer" parent="Sauvegardes/Bouttons" unique_id=1515157300]
+layout_mode = 2
+
+[node name="Popup" type="Window" parent="." unique_id=52553252]
+oversampling_override = 1.0
+initial_position = 3
+size = Vector2i(300, 35)
+current_screen = 0
+visible = false
+
+[node name="Button" type="Button" parent="Popup" unique_id=1881559449]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -15.5
+offset_right = 50.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Ok"
+
 [connection signal="pressed" from="HBoxContainer/Jouer" to="." method="_on_jouer_pressed"]
 [connection signal="pressed" from="HBoxContainer/Charger" to="." method="_on_charger_pressed"]
 [connection signal="pressed" from="HBoxContainer/Paramètres" to="." method="_on_paramètres_pressed"]
 [connection signal="pressed" from="HBoxContainer/Crédits" to="." method="_on_crédits_pressed"]
 [connection signal="pressed" from="HBoxContainer/Quiter" to="." method="_on_quiter_pressed"]
 [connection signal="confirmed" from="ConfirmationQuiter" to="." method="_on_confirmation_quiter_confirmed"]
+[connection signal="canceled" from="ConfirmationSupprimer" to="ConfirmationSupprimer" method="hide"]
+[connection signal="canceled" from="ConfirmationSupprimer" to="Sauvegardes" method="show"]
+[connection signal="close_requested" from="ConfirmationSupprimer" to="ConfirmationSupprimer" method="hide"]
+[connection signal="close_requested" from="ConfirmationSupprimer" to="Sauvegardes" method="show"]
+[connection signal="confirmed" from="ConfirmationSupprimer" to="." method="_on_confirmation_supprimer_confirmed"]
 [connection signal="close_requested" from="NomSauvagarde" to="NomSauvagarde" method="hide"]
 [connection signal="pressed" from="NomSauvagarde/VBoxContainer/HBoxContainer/Annuler" to="NomSauvagarde" method="hide"]
 [connection signal="pressed" from="NomSauvagarde/VBoxContainer/HBoxContainer/Valider" to="." method="_on_valider_nom_pressed"]
+[connection signal="close_requested" from="Sauvegardes" to="Sauvegardes" method="hide"]
+[connection signal="close_requested" from="Popup" to="Popup" method="hide"]
+[connection signal="pressed" from="Popup/Button" to="Popup" method="hide"]

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Jeu="*uid://bacclbfjcg082"
 Items="*uid://b4b7q6fd4sdt4"
+EventsDommages="*uid://dynrxy5teptmh"
 
 [display]
 
