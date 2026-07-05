@@ -4,10 +4,6 @@ var domages_initialises: Dictionary[String, RichTextLabel]
 
 func _ready():
 	domages_initialises = {}
-	var cat = Dommage.new()
-	cat.nom="miaou !"
-	cat.objets_necessaires[Items.bois] = 1
-	Jeu.dommages.append(cat)
 	for dommage in Jeu.dommages:
 		ajouter_domages(dommage)
 

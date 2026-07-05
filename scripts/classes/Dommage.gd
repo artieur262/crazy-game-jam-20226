@@ -1,8 +1,15 @@
+## Classe représentant un dommage subit par le chariot.
 class_name Dommage
+## Id du dommage (dois être stable entre les parties)
 var id: String
+## Nom du dommage.
 var nom: String
+## Objets consommables nécessaires pour réparer.
 var objets_necessaires: Dictionary[Item, int]
+## Objets non consommables(outils nécessaires) pour réparer.
+## Ne nécessite qu'un fois l'outil.
 var outils_necessaires: Array[Outil]
+## Flaf permettant de déterminer si l'import a terminé sans succès.
 static var got_error := false
 
 func _init(
@@ -16,20 +23,22 @@ func _init(
 	objets_necessaires = items
 	outils_necessaires = outils
 
-
-static func exports(dommages: Array[Dommage]):
+## Exporte une liste de [Dommage] pour être sauvegardés.
+static func exports(dommages: Array[Dommage]) -> Array[Dictionary]:
 	var exported_data := []
 	for dommage in dommages:
 		exported_data.append(_export(dommage))
 	return exported_data
 
-static func _export(dommage: Dommage):
+## Exporte une un [Dommage] pour être sauvegardé.
+static func _export(dommage: Dommage) -> Dictionary[String, Variant]:
 	return {
 		"id": dommage.id,
 		"nom": dommage.nom,
 		"objects_necessaires": _export_objets(dommage)
 	}
 
+## Exporte une liste des objets et outils nécessaire pour réparer le dommage.
 static func _export_objets(dommage: Dommage) -> Dictionary[String, int]:
 	var objets: Dictionary[String, int] = {}
 	for objet in dommage.objets_necessaires:
@@ -38,6 +47,8 @@ static func _export_objets(dommage: Dommage) -> Dictionary[String, int]:
 		objets[outil.id] = 1
 	return objets
 
+## Importe une liste de [Dommage] depuis une sauvegarde.
+## Voir [member got_error] pour savoir si une érreur est survenue.
 static func imports(datas) -> Array[Dommage]:
 	got_error = false
 	if datas is not Array:
@@ -52,6 +63,8 @@ static func imports(datas) -> Array[Dommage]:
 		importes.append(importe)
 	return importes
 
+## Importe un [Dommage] depuis une sauvegarde.
+## Return null si une érreur est survenue.
 static func _import(data) -> Dommage:
 	if data is not Dictionary:
 		return null

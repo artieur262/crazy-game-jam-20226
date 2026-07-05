@@ -1,14 +1,21 @@
+## Gère la liste de dommages et les events pouvant arriver durant la nuit.
 extends Node
 
+## Dégât due à à une roue cassé causé par une attaque de monstre ou pillard.
 var roue_perdue := Dommage.new(
-	"roue_perdu", "roue perdue", {Items.bois:10}, [Items.marteau])
-var rideau_casses := Dommage.new(
-	"rideau_casses", "rideaux habimés", {Items.chanvre:10}, [Items.aiguilles])
+	"roue_cassé", "roue cassé", {Items.bois:10}, [Items.marteau])
+## Dégât due à aux rideaux habimé causé par une attaque de monstre ou pillard.
+var rideau_habimes := Dommage.new(
+	"rideau_habimes", "rideaux habimés", {Items.chanvre:10}, [Items.aiguilles])
+## Dégât due à l'habitacle habimé causé par une attaque de monstre ou pillard.
 var habitacle := Dommage.new(
 	"habitacle", "habitacle", {Items.bois:20}, [Items.aiguilles])
+## Saleté sur la charette.
+## Augmente les risque de casse spontannée.
 var salete := Dommage.new(
 	"salete", "salete", {}, [Items.seau, Items.eponge])
 
+## L'event tree par défaut utilisé pour déterminer ce qui doit casser pendant la nuit.
 var event_tree := {
 	"Attaque de monstre": {
 		"description":
@@ -17,7 +24,7 @@ var event_tree := {
 		"proba": [5, 10],
 		"degats": {
 			roue_perdue: [6, 10],
-			rideau_casses: [5, 10],
+			rideau_habimes: [5, 10],
 			habitacle: [5, 22]
 		},
 		"vols": true,
@@ -30,7 +37,7 @@ var event_tree := {
 		"proba": [5, 10],
 		"degats": {
 			roue_perdue: [6, 10],
-			rideau_casses: [5, 10],
+			rideau_habimes: [5, 10],
 			habitacle: [5, 22]
 		},
 		"vols": true,
@@ -38,20 +45,25 @@ var event_tree := {
 	},
 }
 
+## Génère des GameEvent pour et les dommages associés.
 func applique() -> Array[GameEvent]:
 	var events: Array[GameEvent] = []
 	for event in event_tree:
 		var data = event_tree[event]
+		# Imunité due au camp installé
 		if Jeu.camp_pret and data["protection_camp"]:
 			continue
+		# prabilitée de l'event
 		if randi_range(1, data["proba"][1]) > data["proba"][0]:
 			continue
+		# dégats et leurs probabilitées
 		var impacts: Array[Dommage] = []
 		for degat in data["degats"]:
 			var proba = data["degats"][degat]
 			if randi_range(1, proba[1]) > proba[0]:
 				continue
 			impacts.append(degat)
+		# Si aucn dégat rien à signaler sinon générer l'event.
 		if impacts == []:
 			continue
 		events.append(GameEvent.new(
