@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://djm47n33u1ohb"]
+
+[ext_resource type="Script" uid="uid://bpr2j0bs7ysgi" path="res://scenes/carte/Checkpoint.gd" id="1_akh6w"]
+[ext_resource type="Texture2D" uid="uid://dx00gbky71qn2" path="res://assets/carte/checkpoint.png" id="2_fe7hm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_osho2"]
+size = Vector3(10, 10, 10)
+
+[node name="Checkpoint" type="MeshInstance2D" unique_id=1497967500]
+mesh = SubResource("BoxMesh_osho2")
+texture = ExtResource("2_fe7hm")
+script = ExtResource("1_akh6w")

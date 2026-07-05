@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://d02oqtywmjt11"]
+
+[ext_resource type="Script" uid="uid://cvhtbftg1xfsx" path="res://scenes/menu principal/menu_principal.gd" id="1_qx5sd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osho2"]
+
+[node name="MenuPrincipal" type="CenterContainer" unique_id=511400943]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qx5sd")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=1178897674]
+layout_mode = 2
+
+[node name="Jouer" type="Button" parent="HBoxContainer" unique_id=1519706698]
+layout_mode = 2
+text = "Jouer"
+
+[node name="Charger" type="Button" parent="HBoxContainer" unique_id=1891149809]
+layout_mode = 2
+text = "Charger une partie"
+
+[node name="Paramètres" type="Button" parent="HBoxContainer" unique_id=524338690]
+layout_mode = 2
+text = "Paramètres"
+
+[node name="Crédits" type="Button" parent="HBoxContainer" unique_id=718367691]
+layout_mode = 2
+text = "Crédits"
+
+[node name="Quiter" type="Button" parent="HBoxContainer" unique_id=1014789269]
+layout_mode = 2
+text = "Quiter"
+
+[node name="ConfirmationQuiter" type="ConfirmationDialog" parent="." unique_id=647836651]
+oversampling_override = 1.0
+title = "Voulez-vous vraiment quiter?"
+initial_position = 2
+size = Vector2i(300, 100)
+
+[node name="NomSauvagarde" type="Window" parent="." unique_id=1714022387]
+oversampling_override = 1.0
+title = "Nom de la sauvegarde"
+initial_position = 2
+size = Vector2i(300, 65)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NomSauvagarde" unique_id=2054936672]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Nom" type="LineEdit" parent="NomSauvagarde/VBoxContainer" unique_id=177218129]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NomSauvagarde/VBoxContainer" unique_id=1603442612]
+layout_mode = 2
+
+[node name="Annuler" type="Button" parent="NomSauvagarde/VBoxContainer/HBoxContainer" unique_id=1645908103]
+layout_mode = 2
+text = "Annuler"
+
+[node name="VSeparator" type="Panel" parent="NomSauvagarde/VBoxContainer/HBoxContainer" unique_id=904328848]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_osho2")
+
+[node name="Valider" type="Button" parent="NomSauvagarde/VBoxContainer/HBoxContainer" unique_id=208284657]
+layout_mode = 2
+text = "Valider
+"
+
+[connection signal="pressed" from="HBoxContainer/Jouer" to="." method="_on_jouer_pressed"]
+[connection signal="pressed" from="HBoxContainer/Charger" to="." method="_on_charger_pressed"]
+[connection signal="pressed" from="HBoxContainer/Paramètres" to="." method="_on_paramètres_pressed"]
+[connection signal="pressed" from="HBoxContainer/Crédits" to="." method="_on_crédits_pressed"]
+[connection signal="pressed" from="HBoxContainer/Quiter" to="." method="_on_quiter_pressed"]
+[connection signal="confirmed" from="ConfirmationQuiter" to="." method="_on_confirmation_quiter_confirmed"]
+[connection signal="close_requested" from="NomSauvagarde" to="NomSauvagarde" method="hide"]
+[connection signal="pressed" from="NomSauvagarde/VBoxContainer/HBoxContainer/Annuler" to="NomSauvagarde" method="hide"]
+[connection signal="pressed" from="NomSauvagarde/VBoxContainer/HBoxContainer/Valider" to="." method="_on_valider_nom_pressed"]

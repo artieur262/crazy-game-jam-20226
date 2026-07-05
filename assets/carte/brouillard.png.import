@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://damhsrildm74e"
-path="res://.godot/imported/cat.png-5c710585e2a86ef6704752c4aab6e8c8.ctex"
+uid="uid://cbqfji7bwa8el"
+path="res://.godot/imported/brouillard.png-ec1c0bdaa29cdb4ec587b7a9a8d3f4d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/cat.png"
-dest_files=["res://.godot/imported/cat.png-5c710585e2a86ef6704752c4aab6e8c8.ctex"]
+source_file="res://assets/carte/brouillard.png"
+dest_files=["res://.godot/imported/brouillard.png-ec1c0bdaa29cdb4ec587b7a9a8d3f4d7.ctex"]
 
 [params]
 
