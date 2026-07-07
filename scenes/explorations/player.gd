@@ -1,13 +1,21 @@
 extends CharacterBody2D
 
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var raycast: RayCast2D = $RayCast2D
+## Sprite de ce character body
+@export var animated_sprite_2d: AnimatedSprite2D
+## Raycast utilisé par ce character body.
+@export var raycast: RayCast2D
+## Camera utilisé par ce character body.
+@export var camera: Camera2D
 
 
+var _step := 0
+## Vitesse du joueur.
 const SPEED = 150.0
+## Durée écoulé depuis le début de l'action de récupération.
 var avancement: float = 0
-var step := 0
+##Zoom maximum de la camera
 var max_zoom = 10
+##Zoom minimum de la camera
 var min_zoom = 1
 
 func _ready() -> void:
@@ -42,7 +50,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 	move_and_slide()
 	if raycast.is_colliding():
-		step = 0
+		_step = 0
 		var collider := raycast.get_collider() as Interactif
 		if Input.is_action_pressed("interact"):
 			avancement += delta
@@ -57,27 +65,28 @@ func _physics_process(delta: float) -> void:
 			avancement = 0
 			$Label.visible = true
 			$ProgressBar.visible = false
-	elif step == 0:
-		step = 1
+	elif _step == 0:
+		_step = 1
 		avancement = 0
 		$Label.visible = false
 		$ProgressBar.visible = false
 		
 func _input(event: InputEvent) -> void:
 	if event.is_action("zoom"):
-		$Camera2D.zoom = Vector2.ONE * clamp($Camera2D.zoom.x + 0.3, min_zoom, max_zoom)
+		camera.zoom = Vector2.ONE * clamp(camera.zoom.x + 0.3, min_zoom, max_zoom)
 		mettre_a_jour_console()
 	elif event.is_action("dezoom"):
-		$Camera2D.zoom = Vector2.ONE * clamp($Camera2D.zoom.x - 0.3, min_zoom, max_zoom)
+		camera.zoom = Vector2.ONE * clamp(camera.zoom.x - 0.3, min_zoom, max_zoom)
 		mettre_a_jour_console()
 
+## Met à jour la position de l'affichage des evnets.
 func mettre_a_jour_console():
-	var taille = get_viewport_rect().size/$Camera2D.zoom
-	var i = 1/$Camera2D.zoom.x
+	var taille = get_viewport_rect().size/camera.zoom
+	var i = 1/camera.zoom.x
 	$Notifs.scale = Vector2(i,i)
 	$Notifs.position.x = -taille.x/2+1
 
-
+## Affiche la liste des éléments récupéré par la collecte.
 func collected(items: Dictionary[Item, int]):
 	var text := RichTextLabel.new()
 	text.text = "Obtenus:\n"

@@ -23,7 +23,7 @@ func _ready() -> void:
 	if Jeu.phase_actuelle == Jeu.PHASES.RESUME:
 		nouveau_jour()
 
-
+## Callback pour le signal [signal Jeu.nouveau_jour] affichant ce qu'il s'est passé durant la nuit.
 func nouveau_jour():
 	afficher_info("\n\n")
 	var count := 0

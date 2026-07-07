@@ -12,13 +12,10 @@ func hide_all():
 func _on_retour_au_menu_principal_pressed() -> void:
 	charger_menu_principal(false)
 
-func afficher(text: String):
-	$Popup.title = text
-	$Popup.show()
-
 func _on_crédits_pressed() -> void:
 	charger_menu_principal(true)
 
+## Charge la scene du menu principal.
 func charger_menu_principal(credits := false) -> void:
 	var scene := preload("res://scenes/menu principal/menu principal.tscn")
 	var noeud := scene.instantiate()

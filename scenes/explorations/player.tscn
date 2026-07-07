@@ -126,8 +126,11 @@ animations = [{
 radius = 7.0
 height = 28.0
 
-[node name="player" type="CharacterBody2D" unique_id=604847441]
+[node name="player" type="CharacterBody2D" unique_id=604847441 node_paths=PackedStringArray("animated_sprite_2d", "raycast", "camera")]
 script = ExtResource("1_c51md")
+animated_sprite_2d = NodePath("AnimatedSprite2D")
+raycast = NodePath("RayCast2D")
+camera = NodePath("Camera2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=584196937]
 z_index = 10

@@ -18,6 +18,7 @@ func _ready() -> void:
 	if sauvegardes.size() == 0:
 		$HBoxContainer/Charger.disabled = true
 
+## Masque tout les pop up.
 func hide_all():
 	$ConfirmationQuiter.hide()
 	$ConfirmationSupprimer.hide()
@@ -105,6 +106,7 @@ func _on_charger_pressed() -> void:
 		return
 	$Sauvegardes.show()
 
+## Charge une sauvegarde.
 func charger(id: int, boutton: Array[Button]):
 	var donnees = lire("user://saves/%s.json" % id)
 	if donnees == null:
@@ -183,6 +185,7 @@ func charger(id: int, boutton: Array[Button]):
 		carte, Jeu.checkpoint_depart, [])
 	get_tree().change_scene_to_file("res://scenes/chariot/chariot.tscn")
 
+## Prépare le suppression d'une sauvegarde et affiche le popup de confirmation
 func supprimer(id: int, bouttons: Array[Button]):
 	hide_all()
 	delete_info = [id, bouttons]

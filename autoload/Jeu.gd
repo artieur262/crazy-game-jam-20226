@@ -63,7 +63,7 @@ var resultat_nuit: Array[GameEvent]
 ## Saletée produite par le cheval peux causer [member EventsDommages.salete] et cause
 ## des dégradation à un certain seuil.
 var salete: int
-##
+## Flag indiquant si la charette peux bouger.
 var charette_immobilise := false
 
 ## Prépare une nouvelle partie.
@@ -171,10 +171,11 @@ func retour_phase() -> PHASES:
 			phase_actuelle = PHASES.SECONDE_SELECTION
 	return phase_actuelle
 	
-	
+## Va à la scene de fin.	
 func fin():
 	get_tree().change_scene_to_file("res://scenes/menu de fin/menu de fin.tscn")
 
+## Calcul les dégats et immobilise ou faire perdre le joueur.
 func calcul_degats():
 	var solde_immobilisation := 20
 	var solde_casse := 60
@@ -193,6 +194,7 @@ func calcul_degats():
 		if randi_range(0, abs(solde_casse)):
 			perdu("Votre charette a pris trop de dégâts.")
 
+## Affiche un message indiquant au joueur qu'il a perdu.
 func perdu(message):
 	var center := CenterContainer.new()
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

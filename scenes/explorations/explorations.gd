@@ -10,6 +10,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+# TODO: faire cette fonction
 func random_placement():
 	for obj:Node2D in $spawnable.get_children():
 		pass

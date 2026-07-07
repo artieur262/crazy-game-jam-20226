@@ -80,6 +80,7 @@ func applique() -> Array[GameEvent]:
 	return events
 
 
+## Lance le vol dans l'inventaire.
 func vol():
 	var item_a_voler: Array[Item] = []
 	for item in Jeu.inventaire:

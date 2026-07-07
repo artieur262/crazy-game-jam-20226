@@ -22,11 +22,11 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	
 func _input(event: InputEvent) -> void:
-	if event is  InputEventKey:
+	if event is InputEventKey:
 		if traducteur(event,liste_lettre.get(lettre_droite)):
 			jouer()
 
-	
+## Jouer au jeu.
 func jouer():
 	var cur : Panel = $"bordure/interieur-ext/interieur-int/curseur"
 	if cur.position.x <=0:
@@ -39,12 +39,12 @@ func jouer():
 	
 	
 
+## Déplace le curseur du jeu.
 func mouve_curseur():
 	add_curseur(vitesse_curseur*sens)
 	
 
-
-	
+## Choisi de nouvelles lettres au hasard.
 func randomiser():
 	var rand := randi_range(0,liste_lettre.size()-1)
 	lettre_droite=lettre_gauche

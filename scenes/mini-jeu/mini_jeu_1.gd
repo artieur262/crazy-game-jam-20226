@@ -1,6 +1,8 @@
 extends "res://scenes/mini-jeu/mini_jeu.gd"
 
+## Flag indiquant si le curseur se dirige vers la droite.
 var prochain_droite := false
+## Nombre de réussites à faire. 
 var restant := 10
 
 
@@ -10,6 +12,7 @@ func _ready() -> void:
 	pass
 	start()
 	
+## Démarre le mini-jeu.
 func start():
 	super.start()
 	randomiser(true)
@@ -27,13 +30,13 @@ func _input(event: InputEvent) -> void:
 		if traducteur(event, lettre_actuelle()):
 			actioner()
 
-
+## Retourne un string représentant la prochaine lettre sur laquelle appuyer.
 func lettre_actuelle() -> String:
 	if prochain_droite:
 		return liste_lettre.get(lettre_droite)
 	return liste_lettre.get(lettre_gauche)
 
-
+## Change de direction le curseur..
 func changer():
 	prochain_droite = not prochain_droite
 	var droite : Panel = $"bordure/interieur-ext/interieur-int/active_d"
@@ -50,6 +53,7 @@ func changer():
 	p1.modulate = Color.BLUE
 	p2.modulate = Color.GRAY
 
+## Augmente le nombre de point du joueur.
 func point_up() -> void:
 	randomiser(prochain_droite)
 	changer()
@@ -57,6 +61,7 @@ func point_up() -> void:
 	if restant == 0:
 		quitter.emit(true)
 
+## Augmente le nombre de point du joueur.
 func actioner():
 	var cus : Panel = $"bordure/interieur-ext/interieur-int/curseur"
 	var droite : Panel = $"bordure/interieur-ext/interieur-int/active_d"
@@ -67,7 +72,8 @@ func actioner():
 			
 	elif collision_local_x(cus,gauche):
 		point_up()
-		
+
+## Selectionne une lettre au hasard dans la liste de lettre pour le côté choisir et la défini comme la lettre à utiliser.
 func randomiser(is_droite:bool):
 	var rand := randi_range(0,liste_lettre.size()-1)
 	if is_droite:

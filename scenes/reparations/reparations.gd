@@ -1,6 +1,8 @@
 extends VBoxContainer
 
-var domages_initialises: Dictionary[String, RichTextLabel]
+## Dommages initialisé (donc affichés sur l'UI)
+var domages_initialises: Dictionary[String, ReparationItem]
+## Dommages actuellement selectionne.
 var dommage_selectionne: Dommage
 
 func _ready():
@@ -9,13 +11,14 @@ func _ready():
 	selectionner_image()
 	afficher_inventaire()
 
+## Selectionne une image de fond.
 func selectionner_image():
 	var roue := false
 	var habitacle := false
 	var rideau := false
 	for dommage in Jeu.dommages:
 		supprimer_dommages(dommage, false)
-		ajouter_domages(dommage, false)
+		ajouter_dommages(dommage, false)
 		if dommage == EventsDommages.roue_perdue:
 			roue = true
 		elif dommage == EventsDommages.habitacle:
@@ -33,7 +36,8 @@ func selectionner_image():
 		res = preload("res://assets/reparations/chariot.png")
 	$Main/Chariot.texture = res
 
-func ajouter_domages(dommage: Dommage, reload := true):
+## Ajoute le dommage donné à la liste.
+func ajouter_dommages(dommage: Dommage, reload := true):
 	if domages_initialises.has(dommage.id):
 		return
 	var noeud := ReparationItem.new()
@@ -67,6 +71,7 @@ func ajouter_domages(dommage: Dommage, reload := true):
 	if reload:
 		selectionner_image()
 
+## Supprime le dommage donné à la liste.
 func supprimer_dommages(dommage: Dommage, reload := true):
 	if not domages_initialises.has(dommage.id):
 		return
@@ -75,7 +80,7 @@ func supprimer_dommages(dommage: Dommage, reload := true):
 	if reload:
 		selectionner_image()
 
-
+## Affiche l'inventaire au joueur.
 func afficher_inventaire():
 	var noeud : RichTextLabel
 	for objet in Jeu.inventaire:
@@ -104,6 +109,7 @@ func _on_window_close_requested() -> void:
 	$"Window/mini-jeu-1".stop()
 	$Window.visible=false
 
+## Vérifie si un [Dommage] donné peux être réparré.
 func verificateur_peut_reparer(dommage: Dommage) -> bool:
 	for item in dommage.objets_necessaires:
 		var quantite_requise = dommage.objets_necessaires[item]
@@ -123,7 +129,7 @@ func _on_minijeu_1_quitter(reussi: Variant) -> void:
 	$"Window/mini-jeu-1".restant = 10
 	dommage_selectionne = null
 
-
+## Répare le [Dommage] de [member dommage_actuel] et consome les objets.
 func fabriquer():
 	for object in dommage_selectionne.objets_necessaires:
 		Jeu.inventaire.supprime_item(object,dommage_selectionne.objets_necessaires[object])

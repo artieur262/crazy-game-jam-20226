@@ -19,8 +19,10 @@ var aiguilles := Outil.new("aiguilles", "aiguilles", 1)
 ## Marteau utilisé pour réparer le chariot.
 var marteau := Outil.new("marteau", "marteau",2)
 
+## Liste des items du jeu.
 var items: Array[Item] = [bois, chanvre, hache, seau, aiguilles, marteau, eponge, marchandise]
 
+## Recupère un item par son ID.
 func by_id(id: String) -> Item:
 	for item in items:
 		if item.id == id:
